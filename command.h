@@ -82,6 +82,10 @@ enum event_command
    CMD_EVENT_AUDIO_MUTE_TOGGLE,
    /* Toggles FPS counter. */
    CMD_EVENT_FPS_TOGGLE,
+   /* Change Rotation Counterclockwise. */
+   CMD_EVENT_CHANGE_ROTATION_CCW,
+   /* Change Rotation Counterclockwise. */
+   CMD_EVENT_CHANGE_ROTATION_CW,
    /* Gathers diagnostic info about the system and RetroArch configuration, then sends it to our servers. */
    CMD_EVENT_SEND_DEBUG_INFO,
    /* Toggles netplay hosting. */

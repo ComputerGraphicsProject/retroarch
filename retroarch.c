@@ -1008,6 +1008,8 @@ static const camera_driver_t *camera_drivers[] = {
 
 /* MAIN GLOBAL VARIABLES */
 
+int actRot = 0;
+
 #define _PSUPP(var, name, desc) printf("  %s:\n\t\t%s: %s\n", name, desc, var ? "yes" : "no")
 
 #define FAIL_CPU(simd_type) do { \
@@ -3499,6 +3501,8 @@ const struct input_bind_map input_config_bind_map[RARCH_BIND_LIST_END_NULL] = {
       DECLARE_META_BIND(2, audio_mute,            RARCH_MUTE,                  MENU_ENUM_LABEL_VALUE_INPUT_META_MUTE),
       DECLARE_META_BIND(2, osk_toggle,            RARCH_OSK,                   MENU_ENUM_LABEL_VALUE_INPUT_META_OSK),
       DECLARE_META_BIND(2, fps_toggle,            RARCH_FPS_TOGGLE,            MENU_ENUM_LABEL_VALUE_INPUT_META_FPS_TOGGLE),
+      DECLARE_META_BIND(2, change_rotation_CCW,   RARCH_CHANGE_ROTATION_CCW,   MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_CCW),
+      DECLARE_META_BIND(2, change_rotation_CW,    RARCH_CHANGE_ROTATION_CW,    MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_CW),
       DECLARE_META_BIND(2, send_debug_info,       RARCH_SEND_DEBUG_INFO,       MENU_ENUM_LABEL_VALUE_INPUT_META_SEND_DEBUG_INFO),
       DECLARE_META_BIND(2, netplay_host_toggle,   RARCH_NETPLAY_HOST_TOGGLE,   MENU_ENUM_LABEL_VALUE_INPUT_META_NETPLAY_HOST_TOGGLE),
       DECLARE_META_BIND(2, netplay_game_watch,    RARCH_NETPLAY_GAME_WATCH,    MENU_ENUM_LABEL_VALUE_INPUT_META_NETPLAY_GAME_WATCH),
@@ -3978,6 +3982,8 @@ static const struct cmd_map map[] = {
    { "MUTE",                   RARCH_MUTE },
    { "OSK",                    RARCH_OSK },
    { "FPS_TOGGLE",             RARCH_FPS_TOGGLE },
+   { "CHANGE_ROTATION_CCW",    RARCH_CHANGE_ROTATION_CCW},
+   { "CHANGE_ROTATION_CW",     RARCH_CHANGE_ROTATION_CW},
    { "SEND_DEBUG_INFO",        RARCH_SEND_DEBUG_INFO },
    { "NETPLAY_HOST_TOGGLE",    RARCH_NETPLAY_HOST_TOGGLE },
    { "NETPLAY_GAME_WATCH",     RARCH_NETPLAY_GAME_WATCH },
@@ -7351,6 +7357,35 @@ bool command_event(enum event_command cmd, void *data)
          {
             settings_t *settings           = configuration_settings;
             settings->bools.video_fps_show = !(settings->bools.video_fps_show);
+            RARCH_LOG("[Hotkey]: FPS");
+            actRot = actRot + 1;
+            if(actRot > 3)
+            {
+               actRot = 0;
+            }
+            video_driver_set_rotation(actRot);
+         }
+         break;
+      case CMD_EVENT_CHANGE_ROTATION_CCW:
+         {
+            RARCH_LOG("[Hotkey]: Change Rotation Counterclockwise");
+            actRot = actRot + 1;
+            if(actRot > 3)
+            {
+               actRot = 0;
+            }
+            video_driver_set_rotation(actRot);
+         }
+         break;
+      case CMD_EVENT_CHANGE_ROTATION_CW:
+         {
+            RARCH_LOG("[Hotkey]: Change Rotation Clockwise");
+            actRot = actRot - 1;
+            if(actRot < 0)
+            {
+               actRot = 3;
+            }
+            video_driver_set_rotation(actRot);
          }
          break;
       case CMD_EVENT_OVERLAY_NEXT:
@@ -20783,6 +20818,7 @@ bool video_display_server_get_flags(gfx_ctx_flags_t *flags)
 
 bool video_driver_started_fullscreen(void)
 {
+   RARCH_LOG("[Video]: fullscreen !");
    return video_started_fullscreen;
 }
 
@@ -21554,6 +21590,7 @@ bool video_driver_set_viewport(unsigned width, unsigned height,
 
 bool video_driver_set_rotation(unsigned rotation)
 {
+   RARCH_LOG("[Video]: Setting screen rotation to %d.\n", rotation);
    if (!current_video || !current_video->set_rotation)
       return false;
    current_video->set_rotation(video_driver_data, rotation);
@@ -27987,6 +28024,8 @@ static enum runloop_state runloop_check_state(retro_time_t current_time)
             {RETROK_DELETE,    RETRO_DEVICE_ID_JOYPAD_Y      },
             {0,                RARCH_UI_COMPANION_TOGGLE     },
             {0,                RARCH_FPS_TOGGLE              },
+            {0,                RARCH_CHANGE_ROTATION_CCW     },
+            {0,                RARCH_CHANGE_ROTATION_CW      },
             {0,                RARCH_SEND_DEBUG_INFO         },
             {0,                RARCH_NETPLAY_HOST_TOGGLE     },
             {0,                RARCH_MENU_TOGGLE             },
@@ -27996,9 +28035,11 @@ static enum runloop_state runloop_check_state(retro_time_t current_time)
          ids[10][0] = input_config_binds[0][RARCH_FULLSCREEN_TOGGLE_KEY].key;
          ids[14][0] = input_config_binds[0][RARCH_UI_COMPANION_TOGGLE].key;
          ids[15][0] = input_config_binds[0][RARCH_FPS_TOGGLE].key;
-         ids[16][0] = input_config_binds[0][RARCH_SEND_DEBUG_INFO].key;
-         ids[17][0] = input_config_binds[0][RARCH_NETPLAY_HOST_TOGGLE].key;
-         ids[18][0] = input_config_binds[0][RARCH_MENU_TOGGLE].key;
+         ids[16][0] = input_config_binds[0][RARCH_CHANGE_ROTATION_CCW].key;
+         ids[17][0] = input_config_binds[0][RARCH_CHANGE_ROTATION_CW].key;
+         ids[18][0] = input_config_binds[0][RARCH_SEND_DEBUG_INFO].key;
+         ids[19][0] = input_config_binds[0][RARCH_NETPLAY_HOST_TOGGLE].key;
+         ids[20][0] = input_config_binds[0][RARCH_MENU_TOGGLE].key;
 
          if (settings->bools.input_menu_swap_ok_cancel_buttons)
          {
@@ -28438,6 +28479,11 @@ static enum runloop_state runloop_check_state(retro_time_t current_time)
 
    /* Check if we have pressed the FPS toggle button */
    HOTKEY_CHECK(RARCH_FPS_TOGGLE, CMD_EVENT_FPS_TOGGLE, true, NULL);
+
+   /* Check if we have pressed the CHANGE ROTATION CCW button */
+   HOTKEY_CHECK(RARCH_CHANGE_ROTATION_CCW, CMD_EVENT_CHANGE_ROTATION_CCW, true, NULL);
+   /* Check if we have pressed the CHANGE ROTATION CW button */
+   HOTKEY_CHECK(RARCH_CHANGE_ROTATION_CW, CMD_EVENT_CHANGE_ROTATION_CW, true, NULL);
 
    /* Check if we have pressed the netplay host toggle button */
    HOTKEY_CHECK(RARCH_NETPLAY_HOST_TOGGLE, CMD_EVENT_NETPLAY_HOST_TOGGLE, true, NULL);

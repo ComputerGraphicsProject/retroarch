@@ -185,3 +185,13 @@ gfx/common/wayland/xdg-decoration-unstable-v1.h
 gfx/common/wayland/xdg-decoration-unstable-v1.c
 gfx/common/wayland/xdg-shell.c
 gfx/common/wayland/xdg-shell.h
+
+/cheats/
+/shaders/shaders_glsl
+/overlays/
+/autoconfig/
+/database/
+/logs/
+/downloads/
+/states/
+/playlists/
