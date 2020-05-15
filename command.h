@@ -86,6 +86,10 @@ enum event_command
    CMD_EVENT_CHANGE_ROTATION_CCW,
    /* Change Rotation Counterclockwise. */
    CMD_EVENT_CHANGE_ROTATION_CW,
+   /* Change Orientation Counterclockwise. */
+   CMD_EVENT_CHANGE_ORIENT_CCW,
+   /* Change Orientation Counterclockwise. */
+   CMD_EVENT_CHANGE_ORIENT_CW,
    /* Gathers diagnostic info about the system and RetroArch configuration, then sends it to our servers. */
    CMD_EVENT_SEND_DEBUG_INFO,
    /* Toggles netplay hosting. */

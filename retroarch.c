@@ -1009,6 +1009,7 @@ static const camera_driver_t *camera_drivers[] = {
 /* MAIN GLOBAL VARIABLES */
 
 int actRot = 0;
+int actOrient = 0;
 
 #define _PSUPP(var, name, desc) printf("  %s:\n\t\t%s: %s\n", name, desc, var ? "yes" : "no")
 
@@ -3503,6 +3504,8 @@ const struct input_bind_map input_config_bind_map[RARCH_BIND_LIST_END_NULL] = {
       DECLARE_META_BIND(2, fps_toggle,            RARCH_FPS_TOGGLE,            MENU_ENUM_LABEL_VALUE_INPUT_META_FPS_TOGGLE),
       DECLARE_META_BIND(2, change_rotation_CCW,   RARCH_CHANGE_ROTATION_CCW,   MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_CCW),
       DECLARE_META_BIND(2, change_rotation_CW,    RARCH_CHANGE_ROTATION_CW,    MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_CW),
+      DECLARE_META_BIND(2, change_orient_CCW,     RARCH_CHANGE_ORIENT_CCW,     MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_CCW),
+      DECLARE_META_BIND(2, change_orient_CW,      RARCH_CHANGE_ORIENT_CW,      MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_CW),
       DECLARE_META_BIND(2, send_debug_info,       RARCH_SEND_DEBUG_INFO,       MENU_ENUM_LABEL_VALUE_INPUT_META_SEND_DEBUG_INFO),
       DECLARE_META_BIND(2, netplay_host_toggle,   RARCH_NETPLAY_HOST_TOGGLE,   MENU_ENUM_LABEL_VALUE_INPUT_META_NETPLAY_HOST_TOGGLE),
       DECLARE_META_BIND(2, netplay_game_watch,    RARCH_NETPLAY_GAME_WATCH,    MENU_ENUM_LABEL_VALUE_INPUT_META_NETPLAY_GAME_WATCH),
@@ -3982,8 +3985,10 @@ static const struct cmd_map map[] = {
    { "MUTE",                   RARCH_MUTE },
    { "OSK",                    RARCH_OSK },
    { "FPS_TOGGLE",             RARCH_FPS_TOGGLE },
-   { "CHANGE_ROTATION_CCW",    RARCH_CHANGE_ROTATION_CCW},
-   { "CHANGE_ROTATION_CW",     RARCH_CHANGE_ROTATION_CW},
+   { "CHANGE_ROTATION_CCW",    RARCH_CHANGE_ROTATION_CCW },
+   { "CHANGE_ROTATION_CW",     RARCH_CHANGE_ROTATION_CW },
+   { "CHANGE_ORIENT_CCW",      RARCH_CHANGE_ORIENT_CCW },
+   { "CHANGE_ORIENT_CW",       RARCH_CHANGE_ORIENT_CW },
    { "SEND_DEBUG_INFO",        RARCH_SEND_DEBUG_INFO },
    { "NETPLAY_HOST_TOGGLE",    RARCH_NETPLAY_HOST_TOGGLE },
    { "NETPLAY_GAME_WATCH",     RARCH_NETPLAY_GAME_WATCH },
@@ -7386,6 +7391,28 @@ bool command_event(enum event_command cmd, void *data)
                actRot = 3;
             }
             video_driver_set_rotation(actRot);
+         }
+         break;
+         case CMD_EVENT_CHANGE_ORIENT_CCW:
+         {
+            RARCH_LOG("[Hotkey]: Change Orientation Counterclockwise");
+            actOrient = actOrient + 1;
+            if(actOrient > 3)
+            {
+               actOrient = 0;
+            }
+            video_display_server_set_screen_orientation(actOrient);
+         }
+         break;
+      case CMD_EVENT_CHANGE_ORIENT_CW:
+         {
+            RARCH_LOG("[Hotkey]: Change Orientation Clockwise");
+            actOrient = actOrient - 1;
+            if(actOrient < 0)
+            {
+               actOrient = 3;
+            }
+            video_display_server_set_screen_orientation(actOrient);
          }
          break;
       case CMD_EVENT_OVERLAY_NEXT:
@@ -28026,6 +28053,8 @@ static enum runloop_state runloop_check_state(retro_time_t current_time)
             {0,                RARCH_FPS_TOGGLE              },
             {0,                RARCH_CHANGE_ROTATION_CCW     },
             {0,                RARCH_CHANGE_ROTATION_CW      },
+            {0,                RARCH_CHANGE_ORIENT_CCW       },
+            {0,                RARCH_CHANGE_ORIENT_CW        },
             {0,                RARCH_SEND_DEBUG_INFO         },
             {0,                RARCH_NETPLAY_HOST_TOGGLE     },
             {0,                RARCH_MENU_TOGGLE             },
@@ -28037,9 +28066,11 @@ static enum runloop_state runloop_check_state(retro_time_t current_time)
          ids[15][0] = input_config_binds[0][RARCH_FPS_TOGGLE].key;
          ids[16][0] = input_config_binds[0][RARCH_CHANGE_ROTATION_CCW].key;
          ids[17][0] = input_config_binds[0][RARCH_CHANGE_ROTATION_CW].key;
-         ids[18][0] = input_config_binds[0][RARCH_SEND_DEBUG_INFO].key;
-         ids[19][0] = input_config_binds[0][RARCH_NETPLAY_HOST_TOGGLE].key;
-         ids[20][0] = input_config_binds[0][RARCH_MENU_TOGGLE].key;
+         ids[18][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_CCW].key;
+         ids[19][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_CW].key;
+         ids[20][0] = input_config_binds[0][RARCH_SEND_DEBUG_INFO].key;
+         ids[21][0] = input_config_binds[0][RARCH_NETPLAY_HOST_TOGGLE].key;
+         ids[22][0] = input_config_binds[0][RARCH_MENU_TOGGLE].key;
 
          if (settings->bools.input_menu_swap_ok_cancel_buttons)
          {
@@ -28484,6 +28515,10 @@ static enum runloop_state runloop_check_state(retro_time_t current_time)
    HOTKEY_CHECK(RARCH_CHANGE_ROTATION_CCW, CMD_EVENT_CHANGE_ROTATION_CCW, true, NULL);
    /* Check if we have pressed the CHANGE ROTATION CW button */
    HOTKEY_CHECK(RARCH_CHANGE_ROTATION_CW, CMD_EVENT_CHANGE_ROTATION_CW, true, NULL);
+   /* Check if we have pressed the CHANGE ROTATION CCW button */
+   HOTKEY_CHECK(RARCH_CHANGE_ORIENT_CCW, CMD_EVENT_CHANGE_ORIENT_CCW, true, NULL);
+   /* Check if we have pressed the CHANGE ROTATION CW button */
+   HOTKEY_CHECK(RARCH_CHANGE_ORIENT_CW, CMD_EVENT_CHANGE_ORIENT_CW, true, NULL);
 
    /* Check if we have pressed the netplay host toggle button */
    HOTKEY_CHECK(RARCH_NETPLAY_HOST_TOGGLE, CMD_EVENT_NETPLAY_HOST_TOGGLE, true, NULL);
