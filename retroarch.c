@@ -1011,6 +1011,7 @@ static const camera_driver_t *camera_drivers[] = {
 int actRot = 0;
 int actOrient = 0;
 bool shaderFlipOr = false;
+bool shaderFlipVer = false;
 bool shaderCocktail = false;
 
 #define _PSUPP(var, name, desc) printf("  %s:\n\t\t%s: %s\n", name, desc, var ? "yes" : "no")
@@ -3508,6 +3509,7 @@ const struct input_bind_map input_config_bind_map[RARCH_BIND_LIST_END_NULL] = {
       DECLARE_META_BIND(2, change_rotation_CW,    RARCH_CHANGE_ROTATION_CW,    MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_CW),
       DECLARE_META_BIND(2, change_orient_CCW,     RARCH_CHANGE_ORIENT_CCW,     MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_CCW),
       DECLARE_META_BIND(2, change_orient_CW,      RARCH_CHANGE_ORIENT_CW,      MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_CW),
+      DECLARE_META_BIND(2, shader_flip_ver,       RARCH_SHADER_FLIP_VER,       MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_FLIP_VER),
       DECLARE_META_BIND(2, shader_flip_or,        RARCH_SHADER_FLIP_OR,        MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_FLIP_OR),
       DECLARE_META_BIND(2, shader_cocktail,       RARCH_SHADER_COCKTAIL,       MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_COCKTAIL),
       DECLARE_META_BIND(2, send_debug_info,       RARCH_SEND_DEBUG_INFO,       MENU_ENUM_LABEL_VALUE_INPUT_META_SEND_DEBUG_INFO),
@@ -3993,6 +3995,7 @@ static const struct cmd_map map[] = {
    { "CHANGE_ROTATION_CW",     RARCH_CHANGE_ROTATION_CW },
    { "CHANGE_ORIENT_CCW",      RARCH_CHANGE_ORIENT_CCW },
    { "CHANGE_ORIENT_CW",       RARCH_CHANGE_ORIENT_CW },
+   { "SHADER_FLIP_VER",        RARCH_SHADER_FLIP_VER },
    { "SHADER_FLIP_OR",         RARCH_SHADER_FLIP_OR },
    { "SHADER_COCKTAIL",        RARCH_SHADER_COCKTAIL },
    { "SEND_DEBUG_INFO",        RARCH_SEND_DEBUG_INFO },
@@ -7421,6 +7424,21 @@ bool command_event(enum event_command cmd, void *data)
             video_display_server_set_screen_orientation(actOrient);
          }
          break;
+         case CMD_EVENT_SHADER_FLIP_VER:
+         {
+            if(!shaderFlipVer) {
+               RARCH_LOG("[Hotkey]: Set Shader Flip Vertical");
+               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\flip-vertical-retroarch.glslp",true);
+               shaderFlipVer = true;
+               shaderFlipOr = false;
+               shaderCocktail = false;
+            } else {
+               RARCH_LOG("[Hotkey]: Unset Shader Flip Vertical");
+               retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
+               shaderFlipVer = false;
+            }
+         }
+         break;
          case CMD_EVENT_SHADER_FLIP_OR:
          {
             if(!shaderFlipOr) {
@@ -7428,6 +7446,7 @@ bool command_event(enum event_command cmd, void *data)
                retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\flip-horizontal-retroarch.glslp",true);
                shaderFlipOr = true;
                shaderCocktail = false;
+               shaderFlipVer = false;
             } else {
                RARCH_LOG("[Hotkey]: Unset Shader Flip Horizontal");
                retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
@@ -7442,6 +7461,7 @@ bool command_event(enum event_command cmd, void *data)
                retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\cocktail-retroarch.glslp",true);
                shaderCocktail = true;
                 shaderFlipOr = false;
+               shaderFlipVer = false;
             } else {
                RARCH_LOG("[Hotkey]: Unet Shader Cocktail");
                retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
@@ -28090,6 +28110,7 @@ static enum runloop_state runloop_check_state(retro_time_t current_time)
             {0,                RARCH_CHANGE_ROTATION_CW      },
             {0,                RARCH_CHANGE_ORIENT_CCW       },
             {0,                RARCH_CHANGE_ORIENT_CW        },
+            {0,                RARCH_SHADER_FLIP_VER         },
             {0,                RARCH_SHADER_FLIP_OR          },
             {0,                RARCH_SHADER_COCKTAIL         },
             {0,                RARCH_SEND_DEBUG_INFO         },
@@ -28105,11 +28126,12 @@ static enum runloop_state runloop_check_state(retro_time_t current_time)
          ids[17][0] = input_config_binds[0][RARCH_CHANGE_ROTATION_CW].key;
          ids[18][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_CCW].key;
          ids[19][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_CW].key;
-         ids[20][0] = input_config_binds[0][RARCH_SHADER_FLIP_OR].key;
-         ids[21][0] = input_config_binds[0][RARCH_SHADER_COCKTAIL].key;
-         ids[22][0] = input_config_binds[0][RARCH_SEND_DEBUG_INFO].key;
-         ids[23][0] = input_config_binds[0][RARCH_NETPLAY_HOST_TOGGLE].key;
-         ids[24][0] = input_config_binds[0][RARCH_MENU_TOGGLE].key;
+         ids[20][0] = input_config_binds[0][RARCH_SHADER_FLIP_VER].key;
+         ids[21][0] = input_config_binds[0][RARCH_SHADER_FLIP_OR].key;
+         ids[22][0] = input_config_binds[0][RARCH_SHADER_COCKTAIL].key;
+         ids[23][0] = input_config_binds[0][RARCH_SEND_DEBUG_INFO].key;
+         ids[24][0] = input_config_binds[0][RARCH_NETPLAY_HOST_TOGGLE].key;
+         ids[25][0] = input_config_binds[0][RARCH_MENU_TOGGLE].key;
 
          if (settings->bools.input_menu_swap_ok_cancel_buttons)
          {
@@ -28558,6 +28580,8 @@ static enum runloop_state runloop_check_state(retro_time_t current_time)
    HOTKEY_CHECK(RARCH_CHANGE_ORIENT_CCW, CMD_EVENT_CHANGE_ORIENT_CCW, true, NULL);
    /* Check if we have pressed the CHANGE ROTATION CW button */
    HOTKEY_CHECK(RARCH_CHANGE_ORIENT_CW, CMD_EVENT_CHANGE_ORIENT_CW, true, NULL);
+   /* Check if we have pressed the SHADER FLIP VER button */
+   HOTKEY_CHECK(RARCH_SHADER_FLIP_VER, CMD_EVENT_SHADER_FLIP_VER, true, NULL);
    /* Check if we have pressed the SHADER FLIP OR button */
    HOTKEY_CHECK(RARCH_SHADER_FLIP_OR, CMD_EVENT_SHADER_FLIP_OR, true, NULL);
    /* Check if we have pressed the SHADER COCKTAIL button */

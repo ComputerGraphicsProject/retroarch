@@ -2199,6 +2199,10 @@ MSG_HASH(
    "Change Orientation Clockwise"
    )
 MSG_HASH(
+   MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_FLIP_VER,
+   "Set flip vertical shader"
+   )
+MSG_HASH(
    MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_FLIP_OR,
    "Set flip horizontal shader"
    )

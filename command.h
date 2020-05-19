@@ -90,6 +90,8 @@ enum event_command
    CMD_EVENT_CHANGE_ORIENT_CCW,
    /* Change Orientation Counterclockwise. */
    CMD_EVENT_CHANGE_ORIENT_CW,
+   /* Set flip vertical shader. */
+   CMD_EVENT_SHADER_FLIP_VER,
    /* Set flip horizontal shader. */
    CMD_EVENT_SHADER_FLIP_OR,
    /* Set cocktail shader. */
