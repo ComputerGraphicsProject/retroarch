@@ -90,6 +90,10 @@ enum event_command
    CMD_EVENT_CHANGE_ORIENT_CCW,
    /* Change Orientation Counterclockwise. */
    CMD_EVENT_CHANGE_ORIENT_CW,
+   /* Set flip horizontal shader. */
+   CMD_EVENT_SHADER_FLIP_OR,
+   /* Set cocktail shader. */
+   CMD_EVENT_SHADER_COCKTAIL,
    /* Gathers diagnostic info about the system and RetroArch configuration, then sends it to our servers. */
    CMD_EVENT_SEND_DEBUG_INFO,
    /* Toggles netplay hosting. */
