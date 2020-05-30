@@ -83,13 +83,21 @@ enum event_command
    /* Toggles FPS counter. */
    CMD_EVENT_FPS_TOGGLE,
    /* Change Rotation Counterclockwise. */
-   CMD_EVENT_CHANGE_ROTATION_CCW,
+   CMD_EVENT_CHANGE_ROTATION_0,
    /* Change Rotation Counterclockwise. */
-   CMD_EVENT_CHANGE_ROTATION_CW,
+   CMD_EVENT_CHANGE_ROTATION_90,
+   /* Change Rotation Counterclockwise. */
+   CMD_EVENT_CHANGE_ROTATION_180,
+   /* Change Rotation Counterclockwise. */
+   CMD_EVENT_CHANGE_ROTATION_270,
    /* Change Orientation Counterclockwise. */
-   CMD_EVENT_CHANGE_ORIENT_CCW,
+   CMD_EVENT_CHANGE_ORIENT_0,
    /* Change Orientation Counterclockwise. */
-   CMD_EVENT_CHANGE_ORIENT_CW,
+   CMD_EVENT_CHANGE_ORIENT_90,
+   /* Change Orientation Counterclockwise. */
+   CMD_EVENT_CHANGE_ORIENT_180,
+   /* Change Orientation Counterclockwise. */
+   CMD_EVENT_CHANGE_ORIENT_270,
    /* Set flip vertical shader. */
    CMD_EVENT_SHADER_FLIP_VER,
    /* Set flip horizontal shader. */

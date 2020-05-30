@@ -8,6 +8,30 @@
   "sort_mode": 2,
   "items": [
     {
+      "path": "C:\\Users\\andre\\MSX\\Metal Slug X.cue",
+      "label": "Metal Slug X",
+      "core_path": "C:\\msys64\\home\\andre\\libretro-super\\retroarch\\cores\\mednafen_psx_libretro.dll",
+      "core_name": "mednafen_psx_libretro.dll",
+      "crc32": "00000000|crc",
+      "db_name": "Sony - PlayStation.lpl"
+    },
+    {
+      "path": "C:\\Users\\andre\\Downloads\\mslug6.zip",
+      "label": "",
+      "core_path": "C:\\msys64\\home\\andre\\libretro-super\\retroarch\\cores\\mame_libretro.dll",
+      "core_name": "mame_libretro.dll",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
+      "path": "C:\\msys64\\home\\andre\\libretro-super\\retroarch\\roms\\psx\\Metal Slug X.cue",
+      "label": "",
+      "core_path": "C:\\msys64\\home\\andre\\libretro-super\\retroarch\\cores\\mednafen_psx_libretro.dll",
+      "core_name": "mednafen_psx_libretro.dll",
+      "crc32": "",
+      "db_name": ""
+    },
+    {
       "path": "D:\\Giochi\\RetroArchGames\\SNES\\International Superstar Soccer Deluxe (U).smc",
       "label": "International Superstar Soccer Deluxe (U)",
       "core_path": "C:\\msys64\\home\\andre\\libretro-super\\retroarch\\cores\\snes9x2002_libretro.dll",

@@ -270,7 +270,6 @@ static bool menu_shader_manager_save_preset_internal(
       ret = video_shader_write_preset(preset_path,
             dir_video_shader,
             shader, save_reference);
-
       if (ret)
          RARCH_LOG("Saved shader preset to %s.\n", preset_path);
       else
@@ -293,6 +292,10 @@ static bool menu_shader_manager_save_preset_internal(
       dirs[1] = dir_menu_config;
       dirs[2] = config_directory;
 
+      
+         RARCH_LOG("\n\n\n\n---------------------------menu config %s.\n", dir_menu_config);
+         
+         RARCH_LOG("\n\n\n\n---------------------------configdirectory %s.\n", config_directory);
       for (i = 0; i < ARRAY_SIZE(dirs); i++)
       {
          if (string_is_empty(dirs[i]))
@@ -306,7 +309,12 @@ static bool menu_shader_manager_save_preset_internal(
          ret = video_shader_write_preset(preset_path,
                dir_video_shader,
                shader, save_reference);
+         RARCH_LOG("\n\n\n\n---------------------------SHADER %s.\n", shader);
+      
+         RARCH_LOG("\n\n\n\n---------------------------save_reference %s.\n", save_reference);
 
+         RARCH_LOG("\n\n\n\n---------------------------dir_video_shader %s.\n", dir_video_shader);
+      
          if (ret)
          {
             RARCH_LOG("Saved shader preset to %s.\n", preset_path);

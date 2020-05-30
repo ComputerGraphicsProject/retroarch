@@ -475,6 +475,9 @@ static bool gl_glsl_compile_programs(
          return false;
       }
 
+      RARCH_LOG("\n\n\n\n\n--------------------PATH--------------------------------: %s.\n",
+               pass->source.path);
+
       vertex                    = pass->source.string.vertex;
       fragment                  = pass->source.string.fragment;
 

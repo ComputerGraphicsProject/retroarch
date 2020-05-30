@@ -2977,6 +2977,7 @@ static enum rotation current_screen_orientation          = ORIENTATION_NORMAL;
 #if defined(HAVE_CG) || defined(HAVE_GLSL) || defined(HAVE_SLANG) || defined(HAVE_HLSL)
 static void retroarch_set_runtime_shader_preset(const char *arg)
 {
+   RARCH_LOG("riga 2979 retroarch.c --------------------------------------ARG------------------ %s.\n", arg);
    if (!string_is_empty(arg))
       strlcpy(runtime_shader_preset, arg, sizeof(runtime_shader_preset));
    else
@@ -3505,10 +3506,14 @@ const struct input_bind_map input_config_bind_map[RARCH_BIND_LIST_END_NULL] = {
       DECLARE_META_BIND(2, audio_mute,            RARCH_MUTE,                  MENU_ENUM_LABEL_VALUE_INPUT_META_MUTE),
       DECLARE_META_BIND(2, osk_toggle,            RARCH_OSK,                   MENU_ENUM_LABEL_VALUE_INPUT_META_OSK),
       DECLARE_META_BIND(2, fps_toggle,            RARCH_FPS_TOGGLE,            MENU_ENUM_LABEL_VALUE_INPUT_META_FPS_TOGGLE),
-      DECLARE_META_BIND(2, change_rotation_CCW,   RARCH_CHANGE_ROTATION_CCW,   MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_CCW),
-      DECLARE_META_BIND(2, change_rotation_CW,    RARCH_CHANGE_ROTATION_CW,    MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_CW),
-      DECLARE_META_BIND(2, change_orient_CCW,     RARCH_CHANGE_ORIENT_CCW,     MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_CCW),
-      DECLARE_META_BIND(2, change_orient_CW,      RARCH_CHANGE_ORIENT_CW,      MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_CW),
+      DECLARE_META_BIND(2, change_rotation_0,     RARCH_CHANGE_ROTATION_0,     MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_0),
+      DECLARE_META_BIND(2, change_rotation_90,    RARCH_CHANGE_ROTATION_90,    MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_90),
+      DECLARE_META_BIND(2, change_rotation_180,   RARCH_CHANGE_ROTATION_180,   MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_180),
+      DECLARE_META_BIND(2, change_rotation_270,   RARCH_CHANGE_ROTATION_270,   MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_270),
+      DECLARE_META_BIND(2, change_orient_0,       RARCH_CHANGE_ORIENT_0,       MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_0),
+      DECLARE_META_BIND(2, change_orient_90,      RARCH_CHANGE_ORIENT_90,      MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_90),
+      DECLARE_META_BIND(2, change_orient_180,     RARCH_CHANGE_ORIENT_180,     MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_180),
+      DECLARE_META_BIND(2, change_orient_270,     RARCH_CHANGE_ORIENT_270,     MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_270),
       DECLARE_META_BIND(2, shader_flip_ver,       RARCH_SHADER_FLIP_VER,       MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_FLIP_VER),
       DECLARE_META_BIND(2, shader_flip_or,        RARCH_SHADER_FLIP_OR,        MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_FLIP_OR),
       DECLARE_META_BIND(2, shader_cocktail,       RARCH_SHADER_COCKTAIL,       MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_COCKTAIL),
@@ -3991,10 +3996,14 @@ static const struct cmd_map map[] = {
    { "MUTE",                   RARCH_MUTE },
    { "OSK",                    RARCH_OSK },
    { "FPS_TOGGLE",             RARCH_FPS_TOGGLE },
-   { "CHANGE_ROTATION_CCW",    RARCH_CHANGE_ROTATION_CCW },
-   { "CHANGE_ROTATION_CW",     RARCH_CHANGE_ROTATION_CW },
-   { "CHANGE_ORIENT_CCW",      RARCH_CHANGE_ORIENT_CCW },
-   { "CHANGE_ORIENT_CW",       RARCH_CHANGE_ORIENT_CW },
+   { "CHANGE_ROTATION_0",      RARCH_CHANGE_ROTATION_0 },
+   { "CHANGE_ROTATION_90",     RARCH_CHANGE_ROTATION_90 },
+   { "CHANGE_ROTATION_180",    RARCH_CHANGE_ROTATION_180 },
+   { "CHANGE_ROTATION_270",    RARCH_CHANGE_ROTATION_270 },
+   { "CHANGE_ORIENT_0",        RARCH_CHANGE_ORIENT_0 },
+   { "CHANGE_ORIENT_90",       RARCH_CHANGE_ORIENT_90 },
+   { "CHANGE_ORIENT_180",      RARCH_CHANGE_ORIENT_180 },
+   { "CHANGE_ORIENT_270",      RARCH_CHANGE_ORIENT_270 },
    { "SHADER_FLIP_VER",        RARCH_SHADER_FLIP_VER },
    { "SHADER_FLIP_OR",         RARCH_SHADER_FLIP_OR },
    { "SHADER_COCKTAIL",        RARCH_SHADER_COCKTAIL },
@@ -4022,6 +4031,50 @@ static const struct cmd_map map[] = {
    { "AI_SERVICE",             RARCH_AI_SERVICE },
 };
 #endif
+
+void retroarch_hotkey_shader(bool vert, bool hor, bool cockt) {
+   if(vert && hor && cockt)
+   {
+      RARCH_LOG("[Hotkey]: Set Shader Vert/Hor/Cockt");
+      retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\vhc.glslp",true); 
+   }
+   if(vert && hor && !cockt)
+   {
+      RARCH_LOG("[Hotkey]: Set Shader Vert/Hor");
+      retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\vh.glslp",true); 
+   }
+   if(vert && !hor && cockt)
+   {
+      RARCH_LOG("[Hotkey]: Set Shader Vert/Cockt");
+      retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\vc.glslp",true); 
+   }
+   if(!vert && hor && cockt)
+   {
+      RARCH_LOG("[Hotkey]: Set Shader Hor/Cockt");
+      retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\hc.glslp",true); 
+   }
+   if(vert && !hor && !cockt)
+   {
+      RARCH_LOG("[Hotkey]: Set Shader Vert");
+      retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\v.glslp",true); 
+   }
+   if(!vert && hor && !cockt)
+   {
+      RARCH_LOG("[Hotkey]: Set Shader Hor");
+      retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\h.glslp",true); 
+   }
+   if(!vert && !hor && cockt)
+   {
+      RARCH_LOG("[Hotkey]: Set Shader Cockt");
+      retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\c.glslp",true); 
+   }
+   
+   if(!vert && !hor && !cockt)
+   {
+      RARCH_LOG("[Hotkey]: Set Shader None");
+      retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
+   }
+}
 
 bool retroarch_apply_shader(enum rarch_shader_type type, const char *preset_path, bool message)
 {
@@ -4104,7 +4157,7 @@ static bool command_set_shader(const char *arg)
 {
 #if defined(HAVE_CG) || defined(HAVE_GLSL) || defined(HAVE_SLANG) || defined(HAVE_HLSL)
    enum rarch_shader_type type = video_shader_parse_type(arg);
-
+   RARCH_LOG("-----------------------------------------------------ARG---- %s.\n", arg);
    if (!string_is_empty(arg))
    {
       if (!video_shader_is_supported(type))
@@ -4115,6 +4168,7 @@ static bool command_set_shader(const char *arg)
       {
          char abs_arg[PATH_MAX_LENGTH];
          const char *ref_path = configuration_settings->paths.directory_video_shader;
+         RARCH_LOG("----------------------------------------------------REF_PATH---- %s.\n", configuration_settings->paths.directory_video_shader);
          fill_pathname_join(abs_arg,
                ref_path, arg, sizeof(abs_arg));
          arg = abs_arg;
@@ -7372,101 +7426,94 @@ bool command_event(enum event_command cmd, void *data)
             settings_t *settings           = configuration_settings;
             settings->bools.video_fps_show = !(settings->bools.video_fps_show);
             RARCH_LOG("[Hotkey]: FPS");
-            actRot = actRot + 1;
-            if(actRot > 3)
-            {
-               actRot = 0;
-            }
-            video_driver_set_rotation(actRot);
          }
          break;
-      case CMD_EVENT_CHANGE_ROTATION_CCW:
+      case CMD_EVENT_CHANGE_ROTATION_0:
          {
-            RARCH_LOG("[Hotkey]: Change Rotation Counterclockwise");
-            actRot = actRot + 1;
-            if(actRot > 3)
-            {
-               actRot = 0;
-            }
-            video_driver_set_rotation(actRot);
+            RARCH_LOG("[Hotkey]: Change Rotation 0°");
+            actRot = 0;
+            video_driver_set_rotation(0);
          }
          break;
-      case CMD_EVENT_CHANGE_ROTATION_CW:
+      case CMD_EVENT_CHANGE_ROTATION_90:
          {
-            RARCH_LOG("[Hotkey]: Change Rotation Clockwise");
-            actRot = actRot - 1;
-            if(actRot < 0)
-            {
-               actRot = 3;
-            }
-            video_driver_set_rotation(actRot);
+            RARCH_LOG("[Hotkey]: Change Rotation 90°");
+            actRot = 3;
+            video_driver_set_rotation(3);
          }
          break;
-         case CMD_EVENT_CHANGE_ORIENT_CCW:
+      case CMD_EVENT_CHANGE_ROTATION_180:
          {
-            RARCH_LOG("[Hotkey]: Change Orientation Counterclockwise");
-            actOrient = actOrient + 1;
-            if(actOrient > 3)
-            {
-               actOrient = 0;
-            }
-            video_display_server_set_screen_orientation(actOrient);
+            RARCH_LOG("[Hotkey]: Change Rotation 180°");
+            actRot = 2;
+            video_driver_set_rotation(2);
          }
          break;
-      case CMD_EVENT_CHANGE_ORIENT_CW:
+      case CMD_EVENT_CHANGE_ROTATION_270:
          {
-            RARCH_LOG("[Hotkey]: Change Orientation Clockwise");
-            actOrient = actOrient - 1;
-            if(actOrient < 0)
-            {
-               actOrient = 3;
-            }
-            video_display_server_set_screen_orientation(actOrient);
+            RARCH_LOG("[Hotkey]: Change Rotation 270°");
+            actRot = 1;
+            video_driver_set_rotation(1);
+         }
+         break;
+         case CMD_EVENT_CHANGE_ORIENT_0:
+         {
+            RARCH_LOG("[Hotkey]: Change Orient 0°");
+            actOrient = 0;
+            video_display_server_set_screen_orientation(0);
+         }
+         break;
+      case CMD_EVENT_CHANGE_ORIENT_90:
+         {
+            RARCH_LOG("[Hotkey]: Change Orient 90°");
+            actOrient = 3;
+            video_display_server_set_screen_orientation(3);
+         }
+         break;
+      case CMD_EVENT_CHANGE_ORIENT_180:
+         {
+            RARCH_LOG("[Hotkey]: Change Orient 180°");
+            actOrient = 2;
+            video_display_server_set_screen_orientation(2);
+         }
+         break;
+      case CMD_EVENT_CHANGE_ORIENT_270:
+         {
+            RARCH_LOG("[Hotkey]: Change Orient 270°");
+            actOrient = 1;
+            video_display_server_set_screen_orientation(1);
          }
          break;
          case CMD_EVENT_SHADER_FLIP_VER:
          {
-            if(!shaderFlipVer) {
-               RARCH_LOG("[Hotkey]: Set Shader Flip Vertical");
-               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\flip-vertical-retroarch.glslp",true);
-               shaderFlipVer = true;
-               shaderFlipOr = false;
-               shaderCocktail = false;
-            } else {
-               RARCH_LOG("[Hotkey]: Unset Shader Flip Vertical");
-               retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
-               shaderFlipVer = false;
+            shaderFlipVer = !shaderFlipVer;
+            
+            if(actRot == 1 || actRot == 3)
+            {
+               retroarch_hotkey_shader(shaderFlipOr, shaderFlipVer, shaderCocktail); 
+            } else
+            {
+               retroarch_hotkey_shader(shaderFlipVer, shaderFlipOr, shaderCocktail);
             }
          }
          break;
          case CMD_EVENT_SHADER_FLIP_OR:
          {
-            if(!shaderFlipOr) {
-               RARCH_LOG("[Hotkey]: Set Shader Flip Horizontal");
-               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\flip-horizontal-retroarch.glslp",true);
-               shaderFlipOr = true;
-               shaderCocktail = false;
-               shaderFlipVer = false;
-            } else {
-               RARCH_LOG("[Hotkey]: Unset Shader Flip Horizontal");
-               retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
-               shaderFlipOr = false;
+            shaderFlipOr = !shaderFlipOr;
+            
+            if(actRot == 1 || actRot == 3)
+            {
+               retroarch_hotkey_shader(shaderFlipOr, shaderFlipVer, shaderCocktail); 
+            } else
+            {
+               retroarch_hotkey_shader(shaderFlipVer, shaderFlipOr, shaderCocktail);
             }
          }
          break;
       case CMD_EVENT_SHADER_COCKTAIL:
          {
-            if(!shaderCocktail) {
-               RARCH_LOG("[Hotkey]: Set Shader Cocktail");
-               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\cocktail-retroarch.glslp",true);
-               shaderCocktail = true;
-                shaderFlipOr = false;
-               shaderFlipVer = false;
-            } else {
-               RARCH_LOG("[Hotkey]: Unet Shader Cocktail");
-               retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
-               shaderCocktail = false;
-            }
+            shaderCocktail = !shaderCocktail;
+            retroarch_hotkey_shader(shaderFlipVer, shaderFlipOr, shaderCocktail);
          }
          break;
       case CMD_EVENT_OVERLAY_NEXT:
@@ -28101,37 +28148,45 @@ static enum runloop_state runloop_check_state(retro_time_t current_time)
             {RETROK_PAGEDOWN,  RETRO_DEVICE_ID_JOYPAD_R       },
             {0,                RARCH_QUIT_KEY                 },
             {0,                RARCH_FULLSCREEN_TOGGLE_KEY    },
-            {RETROK_BACKSPACE, RETRO_DEVICE_ID_JOYPAD_B      },
-            {RETROK_RETURN,    RETRO_DEVICE_ID_JOYPAD_A      },
-            {RETROK_DELETE,    RETRO_DEVICE_ID_JOYPAD_Y      },
-            {0,                RARCH_UI_COMPANION_TOGGLE     },
-            {0,                RARCH_FPS_TOGGLE              },
-            {0,                RARCH_CHANGE_ROTATION_CCW     },
-            {0,                RARCH_CHANGE_ROTATION_CW      },
-            {0,                RARCH_CHANGE_ORIENT_CCW       },
-            {0,                RARCH_CHANGE_ORIENT_CW        },
-            {0,                RARCH_SHADER_FLIP_VER         },
-            {0,                RARCH_SHADER_FLIP_OR          },
-            {0,                RARCH_SHADER_COCKTAIL         },
-            {0,                RARCH_SEND_DEBUG_INFO         },
-            {0,                RARCH_NETPLAY_HOST_TOGGLE     },
-            {0,                RARCH_MENU_TOGGLE             },
+            {RETROK_BACKSPACE, RETRO_DEVICE_ID_JOYPAD_B       },
+            {RETROK_RETURN,    RETRO_DEVICE_ID_JOYPAD_A       },
+            {RETROK_DELETE,    RETRO_DEVICE_ID_JOYPAD_Y       },
+            {0,                RARCH_UI_COMPANION_TOGGLE      },
+            {0,                RARCH_FPS_TOGGLE               },
+            {0,                RARCH_CHANGE_ROTATION_0        },
+            {0,                RARCH_CHANGE_ROTATION_90       },
+            {0,                RARCH_CHANGE_ROTATION_180      },
+            {0,                RARCH_CHANGE_ROTATION_270      },
+            {0,                RARCH_CHANGE_ORIENT_0          },
+            {0,                RARCH_CHANGE_ORIENT_90         },
+            {0,                RARCH_CHANGE_ORIENT_180        },
+            {0,                RARCH_CHANGE_ORIENT_270        },
+            {0,                RARCH_SHADER_FLIP_VER          },
+            {0,                RARCH_SHADER_FLIP_OR           },
+            {0,                RARCH_SHADER_COCKTAIL          },
+            {0,                RARCH_SEND_DEBUG_INFO          },
+            {0,                RARCH_NETPLAY_HOST_TOGGLE      },
+            {0,                RARCH_MENU_TOGGLE              },
          };
 
          ids[9][0]  = input_config_binds[0][RARCH_QUIT_KEY].key;
          ids[10][0] = input_config_binds[0][RARCH_FULLSCREEN_TOGGLE_KEY].key;
          ids[14][0] = input_config_binds[0][RARCH_UI_COMPANION_TOGGLE].key;
          ids[15][0] = input_config_binds[0][RARCH_FPS_TOGGLE].key;
-         ids[16][0] = input_config_binds[0][RARCH_CHANGE_ROTATION_CCW].key;
-         ids[17][0] = input_config_binds[0][RARCH_CHANGE_ROTATION_CW].key;
-         ids[18][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_CCW].key;
-         ids[19][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_CW].key;
-         ids[20][0] = input_config_binds[0][RARCH_SHADER_FLIP_VER].key;
-         ids[21][0] = input_config_binds[0][RARCH_SHADER_FLIP_OR].key;
-         ids[22][0] = input_config_binds[0][RARCH_SHADER_COCKTAIL].key;
-         ids[23][0] = input_config_binds[0][RARCH_SEND_DEBUG_INFO].key;
-         ids[24][0] = input_config_binds[0][RARCH_NETPLAY_HOST_TOGGLE].key;
-         ids[25][0] = input_config_binds[0][RARCH_MENU_TOGGLE].key;
+         ids[16][0] = input_config_binds[0][RARCH_CHANGE_ROTATION_0].key;
+         ids[17][0] = input_config_binds[0][RARCH_CHANGE_ROTATION_90].key;
+         ids[18][0] = input_config_binds[0][RARCH_CHANGE_ROTATION_180].key;
+         ids[19][0] = input_config_binds[0][RARCH_CHANGE_ROTATION_270].key;
+         ids[20][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_0].key;
+         ids[21][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_90].key;
+         ids[22][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_180].key;
+         ids[23][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_270].key;
+         ids[24][0] = input_config_binds[0][RARCH_SHADER_FLIP_VER].key;
+         ids[25][0] = input_config_binds[0][RARCH_SHADER_FLIP_OR].key;
+         ids[26][0] = input_config_binds[0][RARCH_SHADER_COCKTAIL].key;
+         ids[27][0] = input_config_binds[0][RARCH_SEND_DEBUG_INFO].key;
+         ids[28][0] = input_config_binds[0][RARCH_NETPLAY_HOST_TOGGLE].key;
+         ids[29][0] = input_config_binds[0][RARCH_MENU_TOGGLE].key;
 
          if (settings->bools.input_menu_swap_ok_cancel_buttons)
          {
@@ -28573,13 +28628,21 @@ static enum runloop_state runloop_check_state(retro_time_t current_time)
    HOTKEY_CHECK(RARCH_FPS_TOGGLE, CMD_EVENT_FPS_TOGGLE, true, NULL);
 
    /* Check if we have pressed the CHANGE ROTATION CCW button */
-   HOTKEY_CHECK(RARCH_CHANGE_ROTATION_CCW, CMD_EVENT_CHANGE_ROTATION_CCW, true, NULL);
-   /* Check if we have pressed the CHANGE ROTATION CW button */
-   HOTKEY_CHECK(RARCH_CHANGE_ROTATION_CW, CMD_EVENT_CHANGE_ROTATION_CW, true, NULL);
+   HOTKEY_CHECK(RARCH_CHANGE_ROTATION_0, CMD_EVENT_CHANGE_ROTATION_0, true, NULL);
    /* Check if we have pressed the CHANGE ROTATION CCW button */
-   HOTKEY_CHECK(RARCH_CHANGE_ORIENT_CCW, CMD_EVENT_CHANGE_ORIENT_CCW, true, NULL);
-   /* Check if we have pressed the CHANGE ROTATION CW button */
-   HOTKEY_CHECK(RARCH_CHANGE_ORIENT_CW, CMD_EVENT_CHANGE_ORIENT_CW, true, NULL);
+   HOTKEY_CHECK(RARCH_CHANGE_ROTATION_90, CMD_EVENT_CHANGE_ROTATION_90, true, NULL);
+   /* Check if we have pressed the CHANGE ROTATION CCW button */
+   HOTKEY_CHECK(RARCH_CHANGE_ROTATION_180, CMD_EVENT_CHANGE_ROTATION_180, true, NULL);
+   /* Check if we have pressed the CHANGE ROTATION CCW button */
+   HOTKEY_CHECK(RARCH_CHANGE_ROTATION_270, CMD_EVENT_CHANGE_ROTATION_270, true, NULL);
+   /* Check if we have pressed the CHANGE ROTATION CCW button */
+   HOTKEY_CHECK(RARCH_CHANGE_ORIENT_0, CMD_EVENT_CHANGE_ORIENT_0, true, NULL);
+   /* Check if we have pressed the CHANGE ROTATION CCW button */
+   HOTKEY_CHECK(RARCH_CHANGE_ORIENT_90, CMD_EVENT_CHANGE_ORIENT_90, true, NULL);
+   /* Check if we have pressed the CHANGE ROTATION CCW button */
+   HOTKEY_CHECK(RARCH_CHANGE_ORIENT_180, CMD_EVENT_CHANGE_ORIENT_180, true, NULL);
+   /* Check if we have pressed the CHANGE ROTATION CCW button */
+   HOTKEY_CHECK(RARCH_CHANGE_ORIENT_270, CMD_EVENT_CHANGE_ORIENT_270, true, NULL);
    /* Check if we have pressed the SHADER FLIP VER button */
    HOTKEY_CHECK(RARCH_SHADER_FLIP_VER, CMD_EVENT_SHADER_FLIP_VER, true, NULL);
    /* Check if we have pressed the SHADER FLIP OR button */
