@@ -2435,7 +2435,7 @@ static void dir_check_shader(bool pressed_next, bool pressed_prev)
    else
       return;
    change_triggered = true;
-
+   RARCH_LOG("----------------------------------------------------PROVA---- %s.\n", dir_list->list->elems[dir_list->ptr].data);
    command_set_shader(dir_list->list->elems[dir_list->ptr].data);
 }
 
@@ -3490,46 +3490,50 @@ const struct input_bind_map input_config_bind_map[RARCH_BIND_LIST_END_NULL] = {
 #else
       DECLARE_META_BIND(2, exit_emulator,         RARCH_QUIT_KEY,              MENU_ENUM_LABEL_VALUE_INPUT_META_QUIT_KEY),
 #endif
-      DECLARE_META_BIND(2, state_slot_increase,   RARCH_STATE_SLOT_PLUS,       MENU_ENUM_LABEL_VALUE_INPUT_META_STATE_SLOT_PLUS),
-      DECLARE_META_BIND(2, state_slot_decrease,   RARCH_STATE_SLOT_MINUS,      MENU_ENUM_LABEL_VALUE_INPUT_META_STATE_SLOT_MINUS),
-      DECLARE_META_BIND(1, rewind,                RARCH_REWIND,                MENU_ENUM_LABEL_VALUE_INPUT_META_REWIND),
-      DECLARE_META_BIND(2, movie_record_toggle,   RARCH_BSV_RECORD_TOGGLE,     MENU_ENUM_LABEL_VALUE_INPUT_META_BSV_RECORD_TOGGLE),
-      DECLARE_META_BIND(2, pause_toggle,          RARCH_PAUSE_TOGGLE,          MENU_ENUM_LABEL_VALUE_INPUT_META_PAUSE_TOGGLE),
-      DECLARE_META_BIND(2, frame_advance,         RARCH_FRAMEADVANCE,          MENU_ENUM_LABEL_VALUE_INPUT_META_FRAMEADVANCE),
-      DECLARE_META_BIND(2, reset,                 RARCH_RESET,                 MENU_ENUM_LABEL_VALUE_INPUT_META_RESET),
-      DECLARE_META_BIND(2, shader_next,           RARCH_SHADER_NEXT,           MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_NEXT),
-      DECLARE_META_BIND(2, shader_prev,           RARCH_SHADER_PREV,           MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_PREV),
-      DECLARE_META_BIND(2, cheat_index_plus,      RARCH_CHEAT_INDEX_PLUS,      MENU_ENUM_LABEL_VALUE_INPUT_META_CHEAT_INDEX_PLUS),
-      DECLARE_META_BIND(2, cheat_index_minus,     RARCH_CHEAT_INDEX_MINUS,     MENU_ENUM_LABEL_VALUE_INPUT_META_CHEAT_INDEX_MINUS),
-      DECLARE_META_BIND(2, cheat_toggle,          RARCH_CHEAT_TOGGLE,          MENU_ENUM_LABEL_VALUE_INPUT_META_CHEAT_TOGGLE),
-      DECLARE_META_BIND(2, screenshot,            RARCH_SCREENSHOT,            MENU_ENUM_LABEL_VALUE_INPUT_META_SCREENSHOT),
-      DECLARE_META_BIND(2, audio_mute,            RARCH_MUTE,                  MENU_ENUM_LABEL_VALUE_INPUT_META_MUTE),
-      DECLARE_META_BIND(2, osk_toggle,            RARCH_OSK,                   MENU_ENUM_LABEL_VALUE_INPUT_META_OSK),
-      DECLARE_META_BIND(2, fps_toggle,            RARCH_FPS_TOGGLE,            MENU_ENUM_LABEL_VALUE_INPUT_META_FPS_TOGGLE),
-      DECLARE_META_BIND(2, change_rotation_0,     RARCH_CHANGE_ROTATION_0,     MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_0),
-      DECLARE_META_BIND(2, change_rotation_90,    RARCH_CHANGE_ROTATION_90,    MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_90),
-      DECLARE_META_BIND(2, change_rotation_180,   RARCH_CHANGE_ROTATION_180,   MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_180),
-      DECLARE_META_BIND(2, change_rotation_270,   RARCH_CHANGE_ROTATION_270,   MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_270),
-      DECLARE_META_BIND(2, change_orient_0,       RARCH_CHANGE_ORIENT_0,       MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_0),
-      DECLARE_META_BIND(2, change_orient_90,      RARCH_CHANGE_ORIENT_90,      MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_90),
-      DECLARE_META_BIND(2, change_orient_180,     RARCH_CHANGE_ORIENT_180,     MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_180),
-      DECLARE_META_BIND(2, change_orient_270,     RARCH_CHANGE_ORIENT_270,     MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_270),
-      DECLARE_META_BIND(2, shader_flip_ver,       RARCH_SHADER_FLIP_VER,       MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_FLIP_VER),
-      DECLARE_META_BIND(2, shader_flip_or,        RARCH_SHADER_FLIP_OR,        MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_FLIP_OR),
-      DECLARE_META_BIND(2, shader_cocktail,       RARCH_SHADER_COCKTAIL,       MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_COCKTAIL),
-      DECLARE_META_BIND(2, send_debug_info,       RARCH_SEND_DEBUG_INFO,       MENU_ENUM_LABEL_VALUE_INPUT_META_SEND_DEBUG_INFO),
-      DECLARE_META_BIND(2, netplay_host_toggle,   RARCH_NETPLAY_HOST_TOGGLE,   MENU_ENUM_LABEL_VALUE_INPUT_META_NETPLAY_HOST_TOGGLE),
-      DECLARE_META_BIND(2, netplay_game_watch,    RARCH_NETPLAY_GAME_WATCH,    MENU_ENUM_LABEL_VALUE_INPUT_META_NETPLAY_GAME_WATCH),
-      DECLARE_META_BIND(2, enable_hotkey,         RARCH_ENABLE_HOTKEY,         MENU_ENUM_LABEL_VALUE_INPUT_META_ENABLE_HOTKEY),
-      DECLARE_META_BIND(2, volume_up,             RARCH_VOLUME_UP,             MENU_ENUM_LABEL_VALUE_INPUT_META_VOLUME_UP),
-      DECLARE_META_BIND(2, volume_down,           RARCH_VOLUME_DOWN,           MENU_ENUM_LABEL_VALUE_INPUT_META_VOLUME_DOWN),
-      DECLARE_META_BIND(2, overlay_next,          RARCH_OVERLAY_NEXT,          MENU_ENUM_LABEL_VALUE_INPUT_META_OVERLAY_NEXT),
-      DECLARE_META_BIND(2, disk_eject_toggle,     RARCH_DISK_EJECT_TOGGLE,     MENU_ENUM_LABEL_VALUE_INPUT_META_DISK_EJECT_TOGGLE),
-      DECLARE_META_BIND(2, disk_next,             RARCH_DISK_NEXT,             MENU_ENUM_LABEL_VALUE_INPUT_META_DISK_NEXT),
-      DECLARE_META_BIND(2, disk_prev,             RARCH_DISK_PREV,             MENU_ENUM_LABEL_VALUE_INPUT_META_DISK_PREV),
-      DECLARE_META_BIND(2, grab_mouse_toggle,     RARCH_GRAB_MOUSE_TOGGLE,     MENU_ENUM_LABEL_VALUE_INPUT_META_GRAB_MOUSE_TOGGLE),
-      DECLARE_META_BIND(2, game_focus_toggle,     RARCH_GAME_FOCUS_TOGGLE,     MENU_ENUM_LABEL_VALUE_INPUT_META_GAME_FOCUS_TOGGLE),
-      DECLARE_META_BIND(2, desktop_menu_toggle,   RARCH_UI_COMPANION_TOGGLE,   MENU_ENUM_LABEL_VALUE_INPUT_META_UI_COMPANION_TOGGLE),
+      DECLARE_META_BIND(2, state_slot_increase,          RARCH_STATE_SLOT_PLUS,           MENU_ENUM_LABEL_VALUE_INPUT_META_STATE_SLOT_PLUS),
+      DECLARE_META_BIND(2, state_slot_decrease,          RARCH_STATE_SLOT_MINUS,          MENU_ENUM_LABEL_VALUE_INPUT_META_STATE_SLOT_MINUS),
+      DECLARE_META_BIND(1, rewind,                       RARCH_REWIND,                    MENU_ENUM_LABEL_VALUE_INPUT_META_REWIND),
+      DECLARE_META_BIND(2, movie_record_toggle,          RARCH_BSV_RECORD_TOGGLE,         MENU_ENUM_LABEL_VALUE_INPUT_META_BSV_RECORD_TOGGLE),
+      DECLARE_META_BIND(2, pause_toggle,                 RARCH_PAUSE_TOGGLE,              MENU_ENUM_LABEL_VALUE_INPUT_META_PAUSE_TOGGLE),
+      DECLARE_META_BIND(2, frame_advance,                RARCH_FRAMEADVANCE,              MENU_ENUM_LABEL_VALUE_INPUT_META_FRAMEADVANCE),
+      DECLARE_META_BIND(2, reset,                        RARCH_RESET,                     MENU_ENUM_LABEL_VALUE_INPUT_META_RESET),
+      DECLARE_META_BIND(2, shader_next,                  RARCH_SHADER_NEXT,               MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_NEXT),
+      DECLARE_META_BIND(2, shader_prev,                  RARCH_SHADER_PREV,               MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_PREV),
+      DECLARE_META_BIND(2, cheat_index_plus,             RARCH_CHEAT_INDEX_PLUS,          MENU_ENUM_LABEL_VALUE_INPUT_META_CHEAT_INDEX_PLUS),
+      DECLARE_META_BIND(2, cheat_index_minus,            RARCH_CHEAT_INDEX_MINUS,         MENU_ENUM_LABEL_VALUE_INPUT_META_CHEAT_INDEX_MINUS),
+      DECLARE_META_BIND(2, cheat_toggle,                 RARCH_CHEAT_TOGGLE,              MENU_ENUM_LABEL_VALUE_INPUT_META_CHEAT_TOGGLE),
+      DECLARE_META_BIND(2, screenshot,                   RARCH_SCREENSHOT,                MENU_ENUM_LABEL_VALUE_INPUT_META_SCREENSHOT),
+      DECLARE_META_BIND(2, audio_mute,                   RARCH_MUTE,                      MENU_ENUM_LABEL_VALUE_INPUT_META_MUTE),
+      DECLARE_META_BIND(2, osk_toggle,                   RARCH_OSK,                       MENU_ENUM_LABEL_VALUE_INPUT_META_OSK),
+      DECLARE_META_BIND(2, fps_toggle,                   RARCH_FPS_TOGGLE,                MENU_ENUM_LABEL_VALUE_INPUT_META_FPS_TOGGLE),
+      DECLARE_META_BIND(2, change_rotation_0,            RARCH_CHANGE_ROTATION_0,         MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_0),
+      DECLARE_META_BIND(2, change_rotation_90,           RARCH_CHANGE_ROTATION_90,        MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_90),
+      DECLARE_META_BIND(2, change_rotation_180,          RARCH_CHANGE_ROTATION_180,       MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_180),
+      DECLARE_META_BIND(2, change_rotation_270,          RARCH_CHANGE_ROTATION_270,       MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_270),
+      DECLARE_META_BIND(2, change_rotation_0_flip,       RARCH_CHANGE_ROTATION_0_FLIP,    MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_0_FLIP),
+      DECLARE_META_BIND(2, change_rotation_90_flip,      RARCH_CHANGE_ROTATION_90_FLIP,   MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_90_FLIP),
+      DECLARE_META_BIND(2, change_rotation_180_flip,     RARCH_CHANGE_ROTATION_180_FLIP,  MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_180_FLIP),
+      DECLARE_META_BIND(2, change_rotation_270_flip,     RARCH_CHANGE_ROTATION_270_FLIP,  MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ROTATION_270_FLIP),
+      DECLARE_META_BIND(2, change_orient_0,              RARCH_CHANGE_ORIENT_0,           MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_0),
+      DECLARE_META_BIND(2, change_orient_90,             RARCH_CHANGE_ORIENT_90,          MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_90),
+      DECLARE_META_BIND(2, change_orient_180,            RARCH_CHANGE_ORIENT_180,         MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_180),
+      DECLARE_META_BIND(2, change_orient_270,            RARCH_CHANGE_ORIENT_270,         MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_270),
+      DECLARE_META_BIND(2, shader_flip_ver,              RARCH_SHADER_FLIP_VER,           MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_FLIP_VER),
+      DECLARE_META_BIND(2, shader_flip_or,               RARCH_SHADER_FLIP_OR,            MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_FLIP_OR),
+      DECLARE_META_BIND(2, shader_cocktail,              RARCH_SHADER_COCKTAIL,           MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_COCKTAIL),
+      DECLARE_META_BIND(2, send_debug_info,              RARCH_SEND_DEBUG_INFO,           MENU_ENUM_LABEL_VALUE_INPUT_META_SEND_DEBUG_INFO),
+      DECLARE_META_BIND(2, netplay_host_toggle,          RARCH_NETPLAY_HOST_TOGGLE,       MENU_ENUM_LABEL_VALUE_INPUT_META_NETPLAY_HOST_TOGGLE),
+      DECLARE_META_BIND(2, netplay_game_watch,           RARCH_NETPLAY_GAME_WATCH,        MENU_ENUM_LABEL_VALUE_INPUT_META_NETPLAY_GAME_WATCH),
+      DECLARE_META_BIND(2, enable_hotkey,                RARCH_ENABLE_HOTKEY,             MENU_ENUM_LABEL_VALUE_INPUT_META_ENABLE_HOTKEY),
+      DECLARE_META_BIND(2, volume_up,                    RARCH_VOLUME_UP,                 MENU_ENUM_LABEL_VALUE_INPUT_META_VOLUME_UP),
+      DECLARE_META_BIND(2, volume_down,                  RARCH_VOLUME_DOWN,               MENU_ENUM_LABEL_VALUE_INPUT_META_VOLUME_DOWN),
+      DECLARE_META_BIND(2, overlay_next,                 RARCH_OVERLAY_NEXT,              MENU_ENUM_LABEL_VALUE_INPUT_META_OVERLAY_NEXT),
+      DECLARE_META_BIND(2, disk_eject_toggle,            RARCH_DISK_EJECT_TOGGLE,         MENU_ENUM_LABEL_VALUE_INPUT_META_DISK_EJECT_TOGGLE),
+      DECLARE_META_BIND(2, disk_next,                    RARCH_DISK_NEXT,                 MENU_ENUM_LABEL_VALUE_INPUT_META_DISK_NEXT),
+      DECLARE_META_BIND(2, disk_prev,                    RARCH_DISK_PREV,                 MENU_ENUM_LABEL_VALUE_INPUT_META_DISK_PREV),
+      DECLARE_META_BIND(2, grab_mouse_toggle,            RARCH_GRAB_MOUSE_TOGGLE,         MENU_ENUM_LABEL_VALUE_INPUT_META_GRAB_MOUSE_TOGGLE),
+      DECLARE_META_BIND(2, game_focus_toggle,            RARCH_GAME_FOCUS_TOGGLE,         MENU_ENUM_LABEL_VALUE_INPUT_META_GAME_FOCUS_TOGGLE),
+      DECLARE_META_BIND(2, desktop_menu_toggle,          RARCH_UI_COMPANION_TOGGLE,       MENU_ENUM_LABEL_VALUE_INPUT_META_UI_COMPANION_TOGGLE),
 #ifdef HAVE_MENU
       DECLARE_META_BIND(1, menu_toggle,           RARCH_MENU_TOGGLE,           MENU_ENUM_LABEL_VALUE_INPUT_META_MENU_TOGGLE),
 #endif
@@ -3972,63 +3976,67 @@ static const struct cmd_action_map action_map[] = {
 };
 
 static const struct cmd_map map[] = {
-   { "FAST_FORWARD",           RARCH_FAST_FORWARD_KEY },
-   { "FAST_FORWARD_HOLD",      RARCH_FAST_FORWARD_HOLD_KEY },
-   { "SLOWMOTION",             RARCH_SLOWMOTION_KEY },
-   { "SLOWMOTION_HOLD",        RARCH_SLOWMOTION_HOLD_KEY },
-   { "LOAD_STATE",             RARCH_LOAD_STATE_KEY },
-   { "SAVE_STATE",             RARCH_SAVE_STATE_KEY },
-   { "FULLSCREEN_TOGGLE",      RARCH_FULLSCREEN_TOGGLE_KEY },
-   { "QUIT",                   RARCH_QUIT_KEY },
-   { "STATE_SLOT_PLUS",        RARCH_STATE_SLOT_PLUS },
-   { "STATE_SLOT_MINUS",       RARCH_STATE_SLOT_MINUS },
-   { "REWIND",                 RARCH_REWIND },
-   { "BSV_RECORD_TOGGLE",      RARCH_BSV_RECORD_TOGGLE },
-   { "PAUSE_TOGGLE",           RARCH_PAUSE_TOGGLE },
-   { "FRAMEADVANCE",           RARCH_FRAMEADVANCE },
-   { "RESET",                  RARCH_RESET },
-   { "SHADER_NEXT",            RARCH_SHADER_NEXT },
-   { "SHADER_PREV",            RARCH_SHADER_PREV },
-   { "CHEAT_INDEX_PLUS",       RARCH_CHEAT_INDEX_PLUS },
-   { "CHEAT_INDEX_MINUS",      RARCH_CHEAT_INDEX_MINUS },
-   { "CHEAT_TOGGLE",           RARCH_CHEAT_TOGGLE },
-   { "SCREENSHOT",             RARCH_SCREENSHOT },
-   { "MUTE",                   RARCH_MUTE },
-   { "OSK",                    RARCH_OSK },
-   { "FPS_TOGGLE",             RARCH_FPS_TOGGLE },
-   { "CHANGE_ROTATION_0",      RARCH_CHANGE_ROTATION_0 },
-   { "CHANGE_ROTATION_90",     RARCH_CHANGE_ROTATION_90 },
-   { "CHANGE_ROTATION_180",    RARCH_CHANGE_ROTATION_180 },
-   { "CHANGE_ROTATION_270",    RARCH_CHANGE_ROTATION_270 },
-   { "CHANGE_ORIENT_0",        RARCH_CHANGE_ORIENT_0 },
-   { "CHANGE_ORIENT_90",       RARCH_CHANGE_ORIENT_90 },
-   { "CHANGE_ORIENT_180",      RARCH_CHANGE_ORIENT_180 },
-   { "CHANGE_ORIENT_270",      RARCH_CHANGE_ORIENT_270 },
-   { "SHADER_FLIP_VER",        RARCH_SHADER_FLIP_VER },
-   { "SHADER_FLIP_OR",         RARCH_SHADER_FLIP_OR },
-   { "SHADER_COCKTAIL",        RARCH_SHADER_COCKTAIL },
-   { "SEND_DEBUG_INFO",        RARCH_SEND_DEBUG_INFO },
-   { "NETPLAY_HOST_TOGGLE",    RARCH_NETPLAY_HOST_TOGGLE },
-   { "NETPLAY_GAME_WATCH",     RARCH_NETPLAY_GAME_WATCH },
-   { "VOLUME_UP",              RARCH_VOLUME_UP },
-   { "VOLUME_DOWN",            RARCH_VOLUME_DOWN },
-   { "OVERLAY_NEXT",           RARCH_OVERLAY_NEXT },
-   { "DISK_EJECT_TOGGLE",      RARCH_DISK_EJECT_TOGGLE },
-   { "DISK_NEXT",              RARCH_DISK_NEXT },
-   { "DISK_PREV",              RARCH_DISK_PREV },
-   { "GRAB_MOUSE_TOGGLE",      RARCH_GRAB_MOUSE_TOGGLE },
-   { "UI_COMPANION_TOGGLE",    RARCH_UI_COMPANION_TOGGLE },
-   { "GAME_FOCUS_TOGGLE",      RARCH_GAME_FOCUS_TOGGLE },
-   { "MENU_TOGGLE",            RARCH_MENU_TOGGLE },
-   { "RECORDING_TOGGLE",       RARCH_RECORDING_TOGGLE },
-   { "STREAMING_TOGGLE",       RARCH_STREAMING_TOGGLE },
-   { "MENU_UP",                RETRO_DEVICE_ID_JOYPAD_UP },
-   { "MENU_DOWN",              RETRO_DEVICE_ID_JOYPAD_DOWN },
-   { "MENU_LEFT",              RETRO_DEVICE_ID_JOYPAD_LEFT },
-   { "MENU_RIGHT",             RETRO_DEVICE_ID_JOYPAD_RIGHT },
-   { "MENU_A",                 RETRO_DEVICE_ID_JOYPAD_A },
-   { "MENU_B",                 RETRO_DEVICE_ID_JOYPAD_B },
-   { "AI_SERVICE",             RARCH_AI_SERVICE },
+   { "FAST_FORWARD",                RARCH_FAST_FORWARD_KEY },
+   { "FAST_FORWARD_HOLD",           RARCH_FAST_FORWARD_HOLD_KEY },
+   { "SLOWMOTION",                  RARCH_SLOWMOTION_KEY },
+   { "SLOWMOTION_HOLD",             RARCH_SLOWMOTION_HOLD_KEY },
+   { "LOAD_STATE",                  RARCH_LOAD_STATE_KEY },
+   { "SAVE_STATE",                  RARCH_SAVE_STATE_KEY },
+   { "FULLSCREEN_TOGGLE",           RARCH_FULLSCREEN_TOGGLE_KEY },
+   { "QUIT",                        RARCH_QUIT_KEY },
+   { "STATE_SLOT_PLUS",             RARCH_STATE_SLOT_PLUS },
+   { "STATE_SLOT_MINUS",            RARCH_STATE_SLOT_MINUS },
+   { "REWIND",                      RARCH_REWIND },
+   { "BSV_RECORD_TOGGLE",           RARCH_BSV_RECORD_TOGGLE },
+   { "PAUSE_TOGGLE",                RARCH_PAUSE_TOGGLE },
+   { "FRAMEADVANCE",                RARCH_FRAMEADVANCE },
+   { "RESET",                       RARCH_RESET },
+   { "SHADER_NEXT",                 RARCH_SHADER_NEXT },
+   { "SHADER_PREV",                 RARCH_SHADER_PREV },
+   { "CHEAT_INDEX_PLUS",            RARCH_CHEAT_INDEX_PLUS },
+   { "CHEAT_INDEX_MINUS",           RARCH_CHEAT_INDEX_MINUS },
+   { "CHEAT_TOGGLE",                RARCH_CHEAT_TOGGLE },
+   { "SCREENSHOT",                  RARCH_SCREENSHOT },
+   { "MUTE",                        RARCH_MUTE },
+   { "OSK",                         RARCH_OSK },
+   { "FPS_TOGGLE",                  RARCH_FPS_TOGGLE },
+   { "CHANGE_ROTATION_0",           RARCH_CHANGE_ROTATION_0 },
+   { "CHANGE_ROTATION_90",          RARCH_CHANGE_ROTATION_90 },
+   { "CHANGE_ROTATION_180",         RARCH_CHANGE_ROTATION_180 },
+   { "CHANGE_ROTATION_270",         RARCH_CHANGE_ROTATION_270 },
+   { "CHANGE_ROTATION_0_FLIP",      RARCH_CHANGE_ROTATION_0_FLIP },
+   { "CHANGE_ROTATION_90_FLIP",     RARCH_CHANGE_ROTATION_90_FLIP },
+   { "CHANGE_ROTATION_180_FLIP",    RARCH_CHANGE_ROTATION_180_FLIP },
+   { "CHANGE_ROTATION_270_FLIP",    RARCH_CHANGE_ROTATION_270_FLIP },
+   { "CHANGE_ORIENT_0",             RARCH_CHANGE_ORIENT_0 },
+   { "CHANGE_ORIENT_90",            RARCH_CHANGE_ORIENT_90 },
+   { "CHANGE_ORIENT_180",           RARCH_CHANGE_ORIENT_180 },
+   { "CHANGE_ORIENT_270",           RARCH_CHANGE_ORIENT_270 },
+   { "SHADER_FLIP_VER",             RARCH_SHADER_FLIP_VER },
+   { "SHADER_FLIP_OR",              RARCH_SHADER_FLIP_OR },
+   { "SHADER_COCKTAIL",             RARCH_SHADER_COCKTAIL },
+   { "SEND_DEBUG_INFO",             RARCH_SEND_DEBUG_INFO },
+   { "NETPLAY_HOST_TOGGLE",         RARCH_NETPLAY_HOST_TOGGLE },
+   { "NETPLAY_GAME_WATCH",          RARCH_NETPLAY_GAME_WATCH },
+   { "VOLUME_UP",                   RARCH_VOLUME_UP },
+   { "VOLUME_DOWN",                 RARCH_VOLUME_DOWN },
+   { "OVERLAY_NEXT",                RARCH_OVERLAY_NEXT },
+   { "DISK_EJECT_TOGGLE",           RARCH_DISK_EJECT_TOGGLE },
+   { "DISK_NEXT",                   RARCH_DISK_NEXT },
+   { "DISK_PREV",                   RARCH_DISK_PREV },
+   { "GRAB_MOUSE_TOGGLE",           RARCH_GRAB_MOUSE_TOGGLE },
+   { "UI_COMPANION_TOGGLE",         RARCH_UI_COMPANION_TOGGLE },
+   { "GAME_FOCUS_TOGGLE",           RARCH_GAME_FOCUS_TOGGLE },
+   { "MENU_TOGGLE",                 RARCH_MENU_TOGGLE },
+   { "RECORDING_TOGGLE",            RARCH_RECORDING_TOGGLE },
+   { "STREAMING_TOGGLE",            RARCH_STREAMING_TOGGLE },
+   { "MENU_UP",                     RETRO_DEVICE_ID_JOYPAD_UP },
+   { "MENU_DOWN",                   RETRO_DEVICE_ID_JOYPAD_DOWN },
+   { "MENU_LEFT",                   RETRO_DEVICE_ID_JOYPAD_LEFT },
+   { "MENU_RIGHT",                  RETRO_DEVICE_ID_JOYPAD_RIGHT },
+   { "MENU_A",                      RETRO_DEVICE_ID_JOYPAD_A },
+   { "MENU_B",                      RETRO_DEVICE_ID_JOYPAD_B },
+   { "AI_SERVICE",                  RARCH_AI_SERVICE },
 };
 #endif
 
@@ -4157,7 +4165,6 @@ static bool command_set_shader(const char *arg)
 {
 #if defined(HAVE_CG) || defined(HAVE_GLSL) || defined(HAVE_SLANG) || defined(HAVE_HLSL)
    enum rarch_shader_type type = video_shader_parse_type(arg);
-   RARCH_LOG("-----------------------------------------------------ARG---- %s.\n", arg);
    if (!string_is_empty(arg))
    {
       if (!video_shader_is_supported(type))
@@ -4168,7 +4175,6 @@ static bool command_set_shader(const char *arg)
       {
          char abs_arg[PATH_MAX_LENGTH];
          const char *ref_path = configuration_settings->paths.directory_video_shader;
-         RARCH_LOG("----------------------------------------------------REF_PATH---- %s.\n", configuration_settings->paths.directory_video_shader);
          fill_pathname_join(abs_arg,
                ref_path, arg, sizeof(abs_arg));
          arg = abs_arg;
@@ -7423,41 +7429,195 @@ bool command_event(enum event_command cmd, void *data)
          break;
       case CMD_EVENT_FPS_TOGGLE:
          {
-            settings_t *settings           = configuration_settings;
+            settings_t *settings = configuration_settings;
             settings->bools.video_fps_show = !(settings->bools.video_fps_show);
             RARCH_LOG("[Hotkey]: FPS");
          }
          break;
       case CMD_EVENT_CHANGE_ROTATION_0:
          {
+            config_file_t *new_conf = NULL;
+            settings_t *settings = configuration_settings;
+            settings->uints.video_rotation = 0;
             RARCH_LOG("[Hotkey]: Change Rotation 0°");
             actRot = 0;
             video_driver_set_rotation(0);
+
+            retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
+
+            char cwd[PATH_MAX];
+            getcwd(cwd, sizeof(cwd));
+            char *absPath = malloc(strlen(cwd) + strlen("\\config\\remaps\\custom\\0deg\\0deg.rmp") + 1);
+            strcpy(absPath, cwd);
+            strcat(absPath, "\\config\\remaps\\custom\\0deg\\0deg.rmp");
+            printf("Current working dir: %s\n", absPath);
+            new_conf = config_file_new_from_path_to_string(absPath);
+
+            input_remapping_load_file(new_conf, absPath);
          }
          break;
       case CMD_EVENT_CHANGE_ROTATION_90:
          {
+            config_file_t *new_conf = NULL;
+            settings_t *settings = configuration_settings;
+            settings->uints.video_rotation = 3;
             RARCH_LOG("[Hotkey]: Change Rotation 90°");
             actRot = 3;
             video_driver_set_rotation(3);
+
+            retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
+
+            char cwd[PATH_MAX];
+            getcwd(cwd, sizeof(cwd));
+            char *absPath = malloc(strlen(cwd) + strlen("\\config\\remaps\\custom\\90deg\\90deg.rmp") + 1);
+            strcpy(absPath, cwd);
+            strcat(absPath, "\\config\\remaps\\custom\\90deg\\90deg.rmp");
+            printf("Current working dir: %s\n", absPath);
+            new_conf = config_file_new_from_path_to_string(absPath);
+
+            input_remapping_load_file(new_conf, absPath);
          }
          break;
       case CMD_EVENT_CHANGE_ROTATION_180:
          {
+            config_file_t *new_conf = NULL;
+            settings_t *settings = configuration_settings;
+            settings->uints.video_rotation = 2;
             RARCH_LOG("[Hotkey]: Change Rotation 180°");
             actRot = 2;
             video_driver_set_rotation(2);
+
+            retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
+
+            char cwd[PATH_MAX];
+            getcwd(cwd, sizeof(cwd));
+            char *absPath = malloc(strlen(cwd) + strlen("\\config\\remaps\\custom\\180deg\\180deg.rmp") + 1);
+            strcpy(absPath, cwd);
+            strcat(absPath, "\\config\\remaps\\custom\\180deg\\180deg.rmp");
+            printf("Current working dir: %s\n", absPath);
+            new_conf = config_file_new_from_path_to_string(absPath);
+
+            input_remapping_load_file(new_conf, absPath);
          }
          break;
       case CMD_EVENT_CHANGE_ROTATION_270:
          {
+            config_file_t *new_conf = NULL;
+            settings_t *settings = configuration_settings;
+            settings->uints.video_rotation = 1;
             RARCH_LOG("[Hotkey]: Change Rotation 270°");
             actRot = 1;
             video_driver_set_rotation(1);
+
+            retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
+
+            char cwd[PATH_MAX];
+            getcwd(cwd, sizeof(cwd));
+            char *absPath = malloc(strlen(cwd) + strlen("\\config\\remaps\\custom\\270deg\\270deg.rmp") + 1);
+            strcpy(absPath, cwd);
+            strcat(absPath, "\\config\\remaps\\custom\\270deg\\270deg.rmp");
+            printf("Current working dir: %s\n", absPath);
+            new_conf = config_file_new_from_path_to_string(absPath);
+
+            input_remapping_load_file(new_conf, absPath);
+         }
+         break;
+         case CMD_EVENT_CHANGE_ROTATION_0_FLIP:
+         {
+            config_file_t *new_conf = NULL;
+            settings_t *settings = configuration_settings;
+            settings->uints.video_rotation = 0;
+            RARCH_LOG("[Hotkey]: Change Rotation 0°");
+            actRot = 0;
+            video_driver_set_rotation(0);
+
+            RARCH_LOG("[Hotkey]: Set Shader Hor");
+            retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\h.glslp",true); 
+
+            char cwd[PATH_MAX];
+            getcwd(cwd, sizeof(cwd));
+            char *absPath = malloc(strlen(cwd) + strlen("\\config\\remaps\\custom\\0deg\\0deg-hor.rmp") + 1);
+            strcpy(absPath, cwd);
+            strcat(absPath, "\\config\\remaps\\custom\\0deg\\0deg-hor.rmp");
+            printf("Current working dir: %s\n", absPath);
+            new_conf = config_file_new_from_path_to_string(absPath);
+
+            input_remapping_load_file(new_conf, absPath);
+         }
+         break;
+      case CMD_EVENT_CHANGE_ROTATION_90_FLIP:
+         {
+            config_file_t *new_conf = NULL;
+            settings_t *settings = configuration_settings;
+            settings->uints.video_rotation = 3;
+            RARCH_LOG("[Hotkey]: Change Rotation 90°");
+            actRot = 3;
+            video_driver_set_rotation(3);
+
+            RARCH_LOG("[Hotkey]: Set Shader Hor");
+            retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\v.glslp",true); 
+
+            char cwd[PATH_MAX];
+            getcwd(cwd, sizeof(cwd));
+            char *absPath = malloc(strlen(cwd) + strlen("\\config\\remaps\\custom\\90deg\\90deg-hor.rmp") + 1);
+            strcpy(absPath, cwd);
+            strcat(absPath, "\\config\\remaps\\custom\\90deg\\90deg-hor.rmp");
+            printf("Current working dir: %s\n", absPath);
+            new_conf = config_file_new_from_path_to_string(absPath);
+
+            input_remapping_load_file(new_conf, absPath);
+         }
+         break;
+      case CMD_EVENT_CHANGE_ROTATION_180_FLIP:
+         {
+            config_file_t *new_conf = NULL;
+            settings_t *settings = configuration_settings;
+            settings->uints.video_rotation = 2;
+            RARCH_LOG("[Hotkey]: Change Rotation 180°");
+            actRot = 2;
+            video_driver_set_rotation(2);
+
+            RARCH_LOG("[Hotkey]: Set Shader Hor");
+            retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\h.glslp",true); 
+
+            char cwd[PATH_MAX];
+            getcwd(cwd, sizeof(cwd));
+            char *absPath = malloc(strlen(cwd) + strlen("\\config\\remaps\\custom\\180deg\\180deg-hor.rmp") + 1);
+            strcpy(absPath, cwd);
+            strcat(absPath, "\\config\\remaps\\custom\\180deg\\180deg-hor.rmp");
+            printf("Current working dir: %s\n", absPath);
+            new_conf = config_file_new_from_path_to_string(absPath);
+            
+            input_remapping_load_file(new_conf, absPath);
+         }
+         break;
+      case CMD_EVENT_CHANGE_ROTATION_270_FLIP:
+         {
+            config_file_t *new_conf = NULL;
+            settings_t *settings = configuration_settings;
+            settings->uints.video_rotation = 1;
+            RARCH_LOG("[Hotkey]: Change Rotation 270°");
+            actRot = 1;
+            video_driver_set_rotation(1);
+
+            RARCH_LOG("[Hotkey]: Set Shader Hor");
+            retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\v.glslp",true); 
+
+            char cwd[PATH_MAX];
+            getcwd(cwd, sizeof(cwd));
+            char *absPath = malloc(strlen(cwd) + strlen("\\config\\remaps\\custom\\270deg\\270deg-hor.rmp") + 1);
+            strcpy(absPath, cwd);
+            strcat(absPath, "\\config\\remaps\\custom\\270deg\\270deg-hor.rmp");
+            printf("Current working dir: %s\n", absPath);
+            new_conf = config_file_new_from_path_to_string(absPath);
+
+            input_remapping_load_file(new_conf, absPath);
          }
          break;
          case CMD_EVENT_CHANGE_ORIENT_0:
          {
+            settings_t *settings = configuration_settings;
+            settings->uints.screen_orientation = 0;
             RARCH_LOG("[Hotkey]: Change Orient 0°");
             actOrient = 0;
             video_display_server_set_screen_orientation(0);
@@ -7465,6 +7625,8 @@ bool command_event(enum event_command cmd, void *data)
          break;
       case CMD_EVENT_CHANGE_ORIENT_90:
          {
+            settings_t *settings = configuration_settings;
+            settings->uints.screen_orientation = 3;
             RARCH_LOG("[Hotkey]: Change Orient 90°");
             actOrient = 3;
             video_display_server_set_screen_orientation(3);
@@ -7472,13 +7634,17 @@ bool command_event(enum event_command cmd, void *data)
          break;
       case CMD_EVENT_CHANGE_ORIENT_180:
          {
+            settings_t *settings = configuration_settings;
+            settings->uints.screen_orientation = 2;
             RARCH_LOG("[Hotkey]: Change Orient 180°");
             actOrient = 2;
             video_display_server_set_screen_orientation(2);
          }
          break;
       case CMD_EVENT_CHANGE_ORIENT_270:
-         {
+         { 
+            settings_t *settings = configuration_settings;
+            settings->uints.screen_orientation = 1;
             RARCH_LOG("[Hotkey]: Change Orient 270°");
             actOrient = 1;
             video_display_server_set_screen_orientation(1);
@@ -7490,7 +7656,8 @@ bool command_event(enum event_command cmd, void *data)
             
             if(actRot == 1 || actRot == 3)
             {
-               retroarch_hotkey_shader(shaderFlipOr, shaderFlipVer, shaderCocktail); 
+               retroarch_hotkey_shader(shaderFlipOr, shaderFlipVer, shaderCocktail);
+
             } else
             {
                retroarch_hotkey_shader(shaderFlipVer, shaderFlipOr, shaderCocktail);
@@ -7926,6 +8093,8 @@ bool command_event(enum event_command cmd, void *data)
                configuration_settings->paths.directory_video_shader,
                configuration_settings->paths.directory_menu_config
                );
+               RARCH_LOG("-------------7927ra---------------------------------------PROVA---- %s.\n", configuration_settings->paths.directory_video_shader);
+               RARCH_LOG("----------------------------------------------------PROVA---- %s.\n", configuration_settings->paths.directory_menu_config);
 #endif
 #endif
          ui_companion_event_command(cmd);
@@ -18452,7 +18621,6 @@ void config_read_keybinds_conf(void *data)
 
    if (!conf)
       return;
-
    for (i = 0; i < MAX_USERS; i++)
    {
       unsigned j;
@@ -28157,6 +28325,10 @@ static enum runloop_state runloop_check_state(retro_time_t current_time)
             {0,                RARCH_CHANGE_ROTATION_90       },
             {0,                RARCH_CHANGE_ROTATION_180      },
             {0,                RARCH_CHANGE_ROTATION_270      },
+            {0,                RARCH_CHANGE_ROTATION_0_FLIP   },
+            {0,                RARCH_CHANGE_ROTATION_90_FLIP  },
+            {0,                RARCH_CHANGE_ROTATION_180_FLIP },
+            {0,                RARCH_CHANGE_ROTATION_270_FLIP },
             {0,                RARCH_CHANGE_ORIENT_0          },
             {0,                RARCH_CHANGE_ORIENT_90         },
             {0,                RARCH_CHANGE_ORIENT_180        },
@@ -28177,16 +28349,20 @@ static enum runloop_state runloop_check_state(retro_time_t current_time)
          ids[17][0] = input_config_binds[0][RARCH_CHANGE_ROTATION_90].key;
          ids[18][0] = input_config_binds[0][RARCH_CHANGE_ROTATION_180].key;
          ids[19][0] = input_config_binds[0][RARCH_CHANGE_ROTATION_270].key;
-         ids[20][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_0].key;
-         ids[21][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_90].key;
-         ids[22][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_180].key;
-         ids[23][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_270].key;
-         ids[24][0] = input_config_binds[0][RARCH_SHADER_FLIP_VER].key;
-         ids[25][0] = input_config_binds[0][RARCH_SHADER_FLIP_OR].key;
-         ids[26][0] = input_config_binds[0][RARCH_SHADER_COCKTAIL].key;
-         ids[27][0] = input_config_binds[0][RARCH_SEND_DEBUG_INFO].key;
-         ids[28][0] = input_config_binds[0][RARCH_NETPLAY_HOST_TOGGLE].key;
-         ids[29][0] = input_config_binds[0][RARCH_MENU_TOGGLE].key;
+         ids[20][0] = input_config_binds[0][RARCH_CHANGE_ROTATION_0_FLIP].key;
+         ids[21][0] = input_config_binds[0][RARCH_CHANGE_ROTATION_90_FLIP].key;
+         ids[22][0] = input_config_binds[0][RARCH_CHANGE_ROTATION_180_FLIP].key;
+         ids[23][0] = input_config_binds[0][RARCH_CHANGE_ROTATION_270_FLIP].key;
+         ids[24][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_0].key;
+         ids[25][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_90].key;
+         ids[26][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_180].key;
+         ids[27][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_270].key;
+         ids[28][0] = input_config_binds[0][RARCH_SHADER_FLIP_VER].key;
+         ids[29][0] = input_config_binds[0][RARCH_SHADER_FLIP_OR].key;
+         ids[30][0] = input_config_binds[0][RARCH_SHADER_COCKTAIL].key;
+         ids[31][0] = input_config_binds[0][RARCH_SEND_DEBUG_INFO].key;
+         ids[32][0] = input_config_binds[0][RARCH_NETPLAY_HOST_TOGGLE].key;
+         ids[33][0] = input_config_binds[0][RARCH_MENU_TOGGLE].key;
 
          if (settings->bools.input_menu_swap_ok_cancel_buttons)
          {
@@ -28635,6 +28811,14 @@ static enum runloop_state runloop_check_state(retro_time_t current_time)
    HOTKEY_CHECK(RARCH_CHANGE_ROTATION_180, CMD_EVENT_CHANGE_ROTATION_180, true, NULL);
    /* Check if we have pressed the CHANGE ROTATION CCW button */
    HOTKEY_CHECK(RARCH_CHANGE_ROTATION_270, CMD_EVENT_CHANGE_ROTATION_270, true, NULL);
+   /* Check if we have pressed the CHANGE ROTATION CCW button */
+   HOTKEY_CHECK(RARCH_CHANGE_ROTATION_0_FLIP, CMD_EVENT_CHANGE_ROTATION_0_FLIP, true, NULL);
+   /* Check if we have pressed the CHANGE ROTATION CCW button */
+   HOTKEY_CHECK(RARCH_CHANGE_ROTATION_90_FLIP, CMD_EVENT_CHANGE_ROTATION_90_FLIP, true, NULL);
+   /* Check if we have pressed the CHANGE ROTATION CCW button */
+   HOTKEY_CHECK(RARCH_CHANGE_ROTATION_180_FLIP, CMD_EVENT_CHANGE_ROTATION_180_FLIP, true, NULL);
+   /* Check if we have pressed the CHANGE ROTATION CCW button */
+   HOTKEY_CHECK(RARCH_CHANGE_ROTATION_270_FLIP, CMD_EVENT_CHANGE_ROTATION_270_FLIP, true, NULL);
    /* Check if we have pressed the CHANGE ROTATION CCW button */
    HOTKEY_CHECK(RARCH_CHANGE_ORIENT_0, CMD_EVENT_CHANGE_ORIENT_0, true, NULL);
    /* Check if we have pressed the CHANGE ROTATION CCW button */

@@ -90,6 +90,14 @@ enum event_command
    CMD_EVENT_CHANGE_ROTATION_180,
    /* Change Rotation Counterclockwise. */
    CMD_EVENT_CHANGE_ROTATION_270,
+   /* Change Rotation Counterclockwise. */
+   CMD_EVENT_CHANGE_ROTATION_0_FLIP,
+   /* Change Rotation Counterclockwise. */
+   CMD_EVENT_CHANGE_ROTATION_90_FLIP,
+   /* Change Rotation Counterclockwise. */
+   CMD_EVENT_CHANGE_ROTATION_180_FLIP,
+   /* Change Rotation Counterclockwise. */
+   CMD_EVENT_CHANGE_ROTATION_270_FLIP,
    /* Change Orientation Counterclockwise. */
    CMD_EVENT_CHANGE_ORIENT_0,
    /* Change Orientation Counterclockwise. */

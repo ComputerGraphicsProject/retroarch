@@ -443,7 +443,7 @@ static bool gl_glsl_load_source_path(struct video_shader_pass *pass,
    if (nitems <= 0 || len <= 0)
       return false;
 
-   gl_glsl_strip_parameter_pragmas(pass->source.string.vertex, "#pragma parameter");
+   gl_glsl_strip_parameter_pragmas(pass->source.string.vertex, "#pragmayessssparameter");
    pass->source.string.fragment = strdup(pass->source.string.vertex);
    return pass->source.string.fragment && pass->source.string.vertex;
 }

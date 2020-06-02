@@ -41,7 +41,6 @@ bool input_remapping_load_file(void *data, const char *path)
    config_file_t *conf  = (config_file_t*)data;
    settings_t *settings = config_get_ptr();
    global_t *global     = global_get_ptr();
-
    if (!conf ||  string_is_empty(path))
       return false;
 

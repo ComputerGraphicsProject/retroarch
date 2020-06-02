@@ -8,12 +8,44 @@
   "sort_mode": 2,
   "items": [
     {
+      "path": "D:\\Giochi\\RetroArchGames\\SNES\\International Superstar Soccer Deluxe (U).smc",
+      "label": "International Superstar Soccer Deluxe (U)",
+      "core_path": "C:\\msys64\\home\\andre\\libretro-super\\retroarch\\cores\\snes9x2002_libretro.dll",
+      "core_name": "snes9x2002_libretro.dll",
+      "crc32": "00000000|crc",
+      "db_name": "Nintendo - Super Nintendo Entertainment System.lpl"
+    },
+    {
+      "path": "D:\\Giochi\\RetroArchGames\\SNES\\Donkey Kong Country (U) (V1.2) [!].smc",
+      "label": "Donkey Kong Country (U) (V1.2) [!]",
+      "core_path": "C:\\msys64\\home\\andre\\libretro-super\\retroarch\\cores\\snes9x2002_libretro.dll",
+      "core_name": "snes9x2002_libretro.dll",
+      "crc32": "00000000|crc",
+      "db_name": "Nintendo - Super Nintendo Entertainment System.lpl"
+    },
+    {
       "path": "C:\\Users\\andre\\MSX\\Metal Slug X.cue",
       "label": "Metal Slug X",
       "core_path": "C:\\msys64\\home\\andre\\libretro-super\\retroarch\\cores\\mednafen_psx_libretro.dll",
       "core_name": "mednafen_psx_libretro.dll",
       "crc32": "00000000|crc",
       "db_name": "Sony - PlayStation.lpl"
+    },
+    {
+      "path": "D:\\Giochi\\RetroArchGames\\N64\\Super Smash Bros. (U) [!].z64",
+      "label": "Super Smash Bros. (U) [!]",
+      "core_path": "C:\\msys64\\home\\andre\\libretro-super\\retroarch\\cores\\parallel_n64_libretro.dll",
+      "core_name": "parallel_n64_libretro.dll",
+      "crc32": "00000000|crc",
+      "db_name": "Nintendo - Nintendo 64.lpl"
+    },
+    {
+      "path": "D:\\Giochi\\RetroArchGames\\SNES\\Donkey Kong Country (U) (V1.2) [!].smc",
+      "label": "Super Smash Bros. (U) [!]",
+      "core_path": "C:\\msys64\\home\\andre\\libretro-super\\retroarch\\cores\\mednafen_snes_libretro.dll",
+      "core_name": "mednafen_snes_libretro.dll",
+      "crc32": "",
+      "db_name": ""
     },
     {
       "path": "C:\\Users\\andre\\Downloads\\mslug6.zip",
@@ -28,22 +60,6 @@
       "label": "",
       "core_path": "C:\\msys64\\home\\andre\\libretro-super\\retroarch\\cores\\mednafen_psx_libretro.dll",
       "core_name": "mednafen_psx_libretro.dll",
-      "crc32": "",
-      "db_name": ""
-    },
-    {
-      "path": "D:\\Giochi\\RetroArchGames\\SNES\\International Superstar Soccer Deluxe (U).smc",
-      "label": "International Superstar Soccer Deluxe (U)",
-      "core_path": "C:\\msys64\\home\\andre\\libretro-super\\retroarch\\cores\\snes9x2002_libretro.dll",
-      "core_name": "snes9x2002_libretro.dll",
-      "crc32": "00000000|crc",
-      "db_name": "Nintendo - Super Nintendo Entertainment System.lpl"
-    },
-    {
-      "path": "D:\\Giochi\\RetroArchGames\\SNES\\Donkey Kong Country (U) (V1.2) [!].smc",
-      "label": "",
-      "core_path": "C:\\msys64\\home\\andre\\libretro-super\\retroarch\\cores\\snes9x2002_libretro.dll",
-      "core_name": "snes9x2002_libretro.dll",
       "crc32": "",
       "db_name": ""
     }

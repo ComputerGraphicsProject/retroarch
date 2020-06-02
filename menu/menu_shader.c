@@ -243,6 +243,10 @@ static bool menu_shader_manager_save_preset_internal(
    if (shader->modified)
       save_reference = false;
 
+   RARCH_LOG("----------------------------------------------------PROVA---- %i.\n", shader->pass->alias);
+   RARCH_LOG("----------------------------------------------------PROVA---- %s.\n", shader->path);
+   RARCH_LOG("----------------------------------------------------PROVA---- %s.\n", shader->prefix);
+   
    if (!string_is_empty(basename))
    {
       strlcpy(fullname, basename, sizeof(fullname));
