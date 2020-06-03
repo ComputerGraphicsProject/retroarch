@@ -1010,9 +1010,10 @@ static const camera_driver_t *camera_drivers[] = {
 
 int actRot = 0;
 int actOrient = 0;
-bool shaderFlipOr = false;
-bool shaderFlipVer = false;
+/*bool shaderFlipOr = false;
+bool shaderFlipVer = false;*/
 bool shaderCocktail = false;
+int currentDisplay = 0;
 
 #define _PSUPP(var, name, desc) printf("  %s:\n\t\t%s: %s\n", name, desc, var ? "yes" : "no")
 
@@ -6168,6 +6169,7 @@ static void command_event_set_savestate_auto_index(void)
 
 static bool event_init_content(void)
 {
+    RARCH_LOG("---------------------------------------------------------------init---");
    bool contentless = false;
    bool is_inited   = false;
 
@@ -6222,8 +6224,81 @@ static bool event_init_content(void)
    bsv_movie_deinit();
    bsv_movie_init();
    command_event(CMD_EVENT_NETPLAY_INIT, NULL);
-
+   
+    RARCH_LOG("---------------------------------------------------------------end---");
    return true;
+}
+
+int read_init_display() 
+{
+   int numDisplay;
+   FILE *fptr;
+
+   if ((fptr = fopen(".\\schermata.txt","r")) == NULL){
+       printf("Error! opening file");
+
+       // Program exits if the file pointer returns NULL.
+       exit(1);
+   }
+
+   fscanf(fptr,"%d", &numDisplay);
+
+   printf("NumDisplay=%d", numDisplay);
+   fclose(fptr); 
+  
+   return numDisplay;
+}
+
+int read_init_cocktail() 
+{
+   int state;
+   FILE *fptr;
+
+   if ((fptr = fopen(".\\cocktail.txt","r")) == NULL){
+       printf("Error! opening file");
+
+       // Program exits if the file pointer returns NULL.
+       exit(1);
+   }
+
+   fscanf(fptr,"%d", &state);
+
+   printf("stateCocktail=%d", state);
+   fclose(fptr); 
+  
+   return state;
+}
+
+void write_init_display(int numDisplay) 
+{
+   FILE *fptr;
+
+   fptr = fopen(".\\schermata.txt","w");
+
+   if(fptr == NULL)
+   {
+      printf("Error!");   
+      exit(1);             
+   }
+
+   fprintf(fptr,"%d", numDisplay);
+   fclose(fptr);
+}
+
+void write_init_cocktail(int state) 
+{
+   FILE *fptr;
+
+   fptr = fopen(".\\cocktail.txt","w");
+
+   if(fptr == NULL)
+   {
+      printf("Error!");   
+      exit(1);             
+   }
+
+   fprintf(fptr,"%d", state);
+   fclose(fptr);
 }
 
 static void update_runtime_log(bool log_per_core)
@@ -7436,6 +7511,8 @@ bool command_event(enum event_command cmd, void *data)
          break;
       case CMD_EVENT_CHANGE_ROTATION_0:
          {
+            currentDisplay = 1;
+
             config_file_t *new_conf = NULL;
             settings_t *settings = configuration_settings;
             settings->uints.video_rotation = 0;
@@ -7443,7 +7520,14 @@ bool command_event(enum event_command cmd, void *data)
             actRot = 0;
             video_driver_set_rotation(0);
 
-            retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
+            if(shaderCocktail)
+            {
+               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\c.glslp",true);
+            }
+            else
+            {
+               retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
+            }
 
             char cwd[PATH_MAX];
             getcwd(cwd, sizeof(cwd));
@@ -7454,10 +7538,14 @@ bool command_event(enum event_command cmd, void *data)
             new_conf = config_file_new_from_path_to_string(absPath);
 
             input_remapping_load_file(new_conf, absPath);
+
+            write_init_display(currentDisplay);
          }
          break;
       case CMD_EVENT_CHANGE_ROTATION_90:
          {
+            currentDisplay = 2;
+
             config_file_t *new_conf = NULL;
             settings_t *settings = configuration_settings;
             settings->uints.video_rotation = 3;
@@ -7465,7 +7553,14 @@ bool command_event(enum event_command cmd, void *data)
             actRot = 3;
             video_driver_set_rotation(3);
 
-            retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
+            if(shaderCocktail)
+            {
+               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\c.glslp",true);
+            }
+            else
+            {
+               retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
+            }
 
             char cwd[PATH_MAX];
             getcwd(cwd, sizeof(cwd));
@@ -7476,10 +7571,14 @@ bool command_event(enum event_command cmd, void *data)
             new_conf = config_file_new_from_path_to_string(absPath);
 
             input_remapping_load_file(new_conf, absPath);
+
+            write_init_display(currentDisplay);
          }
          break;
       case CMD_EVENT_CHANGE_ROTATION_180:
          {
+            currentDisplay = 3;
+
             config_file_t *new_conf = NULL;
             settings_t *settings = configuration_settings;
             settings->uints.video_rotation = 2;
@@ -7487,7 +7586,14 @@ bool command_event(enum event_command cmd, void *data)
             actRot = 2;
             video_driver_set_rotation(2);
 
-            retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
+            if(shaderCocktail)
+            {
+               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\c.glslp",true);
+            }
+            else
+            {
+               retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
+            }
 
             char cwd[PATH_MAX];
             getcwd(cwd, sizeof(cwd));
@@ -7498,10 +7604,14 @@ bool command_event(enum event_command cmd, void *data)
             new_conf = config_file_new_from_path_to_string(absPath);
 
             input_remapping_load_file(new_conf, absPath);
+
+            write_init_display(currentDisplay);
          }
          break;
       case CMD_EVENT_CHANGE_ROTATION_270:
          {
+            currentDisplay = 4;
+
             config_file_t *new_conf = NULL;
             settings_t *settings = configuration_settings;
             settings->uints.video_rotation = 1;
@@ -7509,8 +7619,14 @@ bool command_event(enum event_command cmd, void *data)
             actRot = 1;
             video_driver_set_rotation(1);
 
-            retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
-
+            if(shaderCocktail)
+            {
+               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\c.glslp",true);
+            }
+            else
+            {
+               retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
+            }
             char cwd[PATH_MAX];
             getcwd(cwd, sizeof(cwd));
             char *absPath = malloc(strlen(cwd) + strlen("\\config\\remaps\\custom\\270deg\\270deg.rmp") + 1);
@@ -7520,10 +7636,14 @@ bool command_event(enum event_command cmd, void *data)
             new_conf = config_file_new_from_path_to_string(absPath);
 
             input_remapping_load_file(new_conf, absPath);
+
+            write_init_display(currentDisplay);
          }
          break;
          case CMD_EVENT_CHANGE_ROTATION_0_FLIP:
          {
+            currentDisplay = 5;
+
             config_file_t *new_conf = NULL;
             settings_t *settings = configuration_settings;
             settings->uints.video_rotation = 0;
@@ -7531,8 +7651,14 @@ bool command_event(enum event_command cmd, void *data)
             actRot = 0;
             video_driver_set_rotation(0);
 
-            RARCH_LOG("[Hotkey]: Set Shader Hor");
-            retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\h.glslp",true); 
+            if(shaderCocktail)
+            {
+               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\hc.glslp",true);
+            }
+            else
+            {
+               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\h.glslp",true);
+            }
 
             char cwd[PATH_MAX];
             getcwd(cwd, sizeof(cwd));
@@ -7543,10 +7669,14 @@ bool command_event(enum event_command cmd, void *data)
             new_conf = config_file_new_from_path_to_string(absPath);
 
             input_remapping_load_file(new_conf, absPath);
+
+            write_init_display(currentDisplay);
          }
          break;
       case CMD_EVENT_CHANGE_ROTATION_90_FLIP:
          {
+            currentDisplay = 6;
+
             config_file_t *new_conf = NULL;
             settings_t *settings = configuration_settings;
             settings->uints.video_rotation = 3;
@@ -7554,8 +7684,14 @@ bool command_event(enum event_command cmd, void *data)
             actRot = 3;
             video_driver_set_rotation(3);
 
-            RARCH_LOG("[Hotkey]: Set Shader Hor");
-            retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\v.glslp",true); 
+            if(shaderCocktail)
+            {
+               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\vc.glslp",true);
+            }
+            else
+            {
+               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\v.glslp",true);
+            }
 
             char cwd[PATH_MAX];
             getcwd(cwd, sizeof(cwd));
@@ -7566,10 +7702,14 @@ bool command_event(enum event_command cmd, void *data)
             new_conf = config_file_new_from_path_to_string(absPath);
 
             input_remapping_load_file(new_conf, absPath);
+
+            write_init_display(currentDisplay);
          }
          break;
       case CMD_EVENT_CHANGE_ROTATION_180_FLIP:
          {
+            currentDisplay = 7;
+
             config_file_t *new_conf = NULL;
             settings_t *settings = configuration_settings;
             settings->uints.video_rotation = 2;
@@ -7577,8 +7717,14 @@ bool command_event(enum event_command cmd, void *data)
             actRot = 2;
             video_driver_set_rotation(2);
 
-            RARCH_LOG("[Hotkey]: Set Shader Hor");
-            retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\h.glslp",true); 
+            if(shaderCocktail)
+            {
+               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\hc.glslp",true);
+            }
+            else
+            {
+               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\h.glslp",true);
+            }
 
             char cwd[PATH_MAX];
             getcwd(cwd, sizeof(cwd));
@@ -7589,10 +7735,14 @@ bool command_event(enum event_command cmd, void *data)
             new_conf = config_file_new_from_path_to_string(absPath);
             
             input_remapping_load_file(new_conf, absPath);
+
+            write_init_display(currentDisplay);
          }
          break;
       case CMD_EVENT_CHANGE_ROTATION_270_FLIP:
          {
+            currentDisplay = 8;
+
             config_file_t *new_conf = NULL;
             settings_t *settings = configuration_settings;
             settings->uints.video_rotation = 1;
@@ -7600,9 +7750,14 @@ bool command_event(enum event_command cmd, void *data)
             actRot = 1;
             video_driver_set_rotation(1);
 
-            RARCH_LOG("[Hotkey]: Set Shader Hor");
-            retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\v.glslp",true); 
-
+            if(shaderCocktail)
+            {
+               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\vc.glslp",true);
+            }
+            else
+            {
+               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\v.glslp",true);
+            }
             char cwd[PATH_MAX];
             getcwd(cwd, sizeof(cwd));
             char *absPath = malloc(strlen(cwd) + strlen("\\config\\remaps\\custom\\270deg\\270deg-hor.rmp") + 1);
@@ -7612,6 +7767,8 @@ bool command_event(enum event_command cmd, void *data)
             new_conf = config_file_new_from_path_to_string(absPath);
 
             input_remapping_load_file(new_conf, absPath);
+
+            write_init_display(currentDisplay);
          }
          break;
          case CMD_EVENT_CHANGE_ORIENT_0:
@@ -7650,7 +7807,7 @@ bool command_event(enum event_command cmd, void *data)
             video_display_server_set_screen_orientation(1);
          }
          break;
-         case CMD_EVENT_SHADER_FLIP_VER:
+         /*case CMD_EVENT_SHADER_FLIP_VER:
          {
             shaderFlipVer = !shaderFlipVer;
             
@@ -7676,11 +7833,55 @@ bool command_event(enum event_command cmd, void *data)
                retroarch_hotkey_shader(shaderFlipVer, shaderFlipOr, shaderCocktail);
             }
          }
-         break;
+         break; */
       case CMD_EVENT_SHADER_COCKTAIL:
          {
             shaderCocktail = !shaderCocktail;
-            retroarch_hotkey_shader(shaderFlipVer, shaderFlipOr, shaderCocktail);
+            //retroarch_hotkey_shader(shaderFlipVer, shaderFlipOr, shaderCocktail);
+            if(shaderCocktail) 
+            {
+               switch (currentDisplay)
+               {
+                  case 5:
+                     retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\hc.glslp",true);
+                     break;
+                  case 6:
+                     retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\vc.glslp",true);
+                     break;
+                  case 7:
+                     retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\hc.glslp",true);
+                     break;
+                  case 8:
+                     retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\vc.glslp",true);
+                     break;
+                  default:
+                     retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\c.glslp",true);
+                     break;
+               }
+               write_init_cocktail(1);
+            } 
+            else 
+            {
+               switch (currentDisplay)
+               {
+                  case 5:
+                     retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\h.glslp",true);
+                     break;
+                  case 6:
+                     retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\v.glslp",true);
+                     break;
+                  case 7:
+                     retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\h.glslp",true);
+                     break;
+                  case 8:
+                     retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\v.glslp",true);
+                     break;
+                  default:
+                     retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
+                     break;
+               }
+               write_init_cocktail(0);
+            }
          }
          break;
       case CMD_EVENT_OVERLAY_NEXT:
