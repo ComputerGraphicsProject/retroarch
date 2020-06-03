@@ -2396,6 +2396,49 @@ static bool dir_init_shader(const char *path_dir_shader,
    dir_list->list = new_list;
    dir_list->ptr  = 0;
 
+   currentDisplay = read_init_display();
+   
+   if(read_init_cocktail() == 1)
+   {
+      shaderCocktail = true;
+   } 
+   else
+   {
+      shaderCocktail = false;
+      write_init_cocktail(0);
+   }
+
+   switch (currentDisplay)
+   {
+   case 1:
+      command_event(CMD_EVENT_CHANGE_ROTATION_0, NULL);
+      break;
+   case 2:
+      command_event(CMD_EVENT_CHANGE_ROTATION_90, NULL);
+      break;
+   case 3:
+      command_event(CMD_EVENT_CHANGE_ROTATION_180, NULL);
+      break;
+   case 4:
+      command_event(CMD_EVENT_CHANGE_ROTATION_270, NULL);
+      break;
+   case 5:
+      command_event(CMD_EVENT_CHANGE_ROTATION_0_FLIP, NULL);
+      break;
+   case 6:
+      command_event(CMD_EVENT_CHANGE_ROTATION_90_FLIP, NULL);
+      break;
+   case 7:
+      command_event(CMD_EVENT_CHANGE_ROTATION_180_FLIP, NULL);
+      break;
+   case 8:
+      command_event(CMD_EVENT_CHANGE_ROTATION_270_FLIP, NULL);
+      break;
+   case -1:
+      command_event(CMD_EVENT_CHANGE_ROTATION_0, NULL);
+      break;
+   }
+
    return true;
 }
 
@@ -6169,7 +6212,6 @@ static void command_event_set_savestate_auto_index(void)
 
 static bool event_init_content(void)
 {
-    RARCH_LOG("---------------------------------------------------------------init---");
    bool contentless = false;
    bool is_inited   = false;
 
@@ -6224,8 +6266,7 @@ static bool event_init_content(void)
    bsv_movie_deinit();
    bsv_movie_init();
    command_event(CMD_EVENT_NETPLAY_INIT, NULL);
-   
-    RARCH_LOG("---------------------------------------------------------------end---");
+
    return true;
 }
 
@@ -6238,7 +6279,7 @@ int read_init_display()
        printf("Error! opening file");
 
        // Program exits if the file pointer returns NULL.
-       exit(1);
+       return -1;
    }
 
    fscanf(fptr,"%d", &numDisplay);
@@ -6258,7 +6299,7 @@ int read_init_cocktail()
        printf("Error! opening file");
 
        // Program exits if the file pointer returns NULL.
-       exit(1);
+       return -1;
    }
 
    fscanf(fptr,"%d", &state);
