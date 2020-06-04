@@ -181,6 +181,54 @@ typedef struct math_matrix_4x4
    MAT_ELEM_4X4(mat, 3, 3) = 1.0f; \
 }
 
+ /*
+  * Builds a rotation matrix using the
+  * rotation around the YZ-axis.
+  */
+#define matrix_4x4_rotate_90_flip(mat) \
+{ \
+   MAT_ELEM_4X4(mat, 0, 0) = 0.0f; \
+   MAT_ELEM_4X4(mat, 0, 1) = 1.0f; \
+   MAT_ELEM_4X4(mat, 0, 2) = 0.0f; \
+   MAT_ELEM_4X4(mat, 0, 3) = 0.0f; \
+   MAT_ELEM_4X4(mat, 1, 0) = 1.0f; \
+   MAT_ELEM_4X4(mat, 1, 1) = 0.0f; \
+   MAT_ELEM_4X4(mat, 1, 2) = 0.0f; \
+   MAT_ELEM_4X4(mat, 1, 3) = 0.0f; \
+   MAT_ELEM_4X4(mat, 2, 0) = 0.0f; \
+   MAT_ELEM_4X4(mat, 2, 1) = 0.0f; \
+   MAT_ELEM_4X4(mat, 2, 2) = 1.0f; \
+   MAT_ELEM_4X4(mat, 2, 3) = 0.0f; \
+   MAT_ELEM_4X4(mat, 3, 0) = 0.0f; \
+   MAT_ELEM_4X4(mat, 3, 1) = 0.0f; \
+   MAT_ELEM_4X4(mat, 3, 2) = 0.0f; \
+   MAT_ELEM_4X4(mat, 3, 3) = 1.0f; \
+}
+
+ /*
+  * Builds a rotation matrix using the
+  * rotation around the YZ-axis.
+  */
+#define matrix_4x4_rotate_270_flip(mat) \
+{ \
+   MAT_ELEM_4X4(mat, 0, 0) = 0.0f; \
+   MAT_ELEM_4X4(mat, 0, 1) = -1.0f; \
+   MAT_ELEM_4X4(mat, 0, 2) = 0.0f; \
+   MAT_ELEM_4X4(mat, 0, 3) = 0.0f; \
+   MAT_ELEM_4X4(mat, 1, 0) = -1.0f; \
+   MAT_ELEM_4X4(mat, 1, 1) = 0.0f; \
+   MAT_ELEM_4X4(mat, 1, 2) = 0.0f; \
+   MAT_ELEM_4X4(mat, 1, 3) = 0.0f; \
+   MAT_ELEM_4X4(mat, 2, 0) = 0.0f; \
+   MAT_ELEM_4X4(mat, 2, 1) = 0.0f; \
+   MAT_ELEM_4X4(mat, 2, 2) = 1.0f; \
+   MAT_ELEM_4X4(mat, 2, 3) = 0.0f; \
+   MAT_ELEM_4X4(mat, 3, 0) = 0.0f; \
+   MAT_ELEM_4X4(mat, 3, 1) = 0.0f; \
+   MAT_ELEM_4X4(mat, 3, 2) = 0.0f; \
+   MAT_ELEM_4X4(mat, 3, 3) = 1.0f; \
+}
+
 /*
  * Creates an orthographic projection matrix.
  */

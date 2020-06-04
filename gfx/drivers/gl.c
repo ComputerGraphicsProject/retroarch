@@ -377,7 +377,27 @@ static void gl2_set_projection(gl_t *gl,
       return;
    }
 
-   matrix_4x4_rotate_z(rot, M_PI * gl->rotation / 180.0f);
+   switch (gl->rotation)
+   {
+   case 360:
+      matrix_4x4_rotate_y(rot, M_PI * 180 / 180.0f);
+      break;
+   case 450:
+      //matrix_4x4_rotate_z(rot, M_PI * 90 / 180.0f);
+      matrix_4x4_rotate_90_flip(rot);
+      break;
+   case 540:
+      matrix_4x4_rotate_x(rot, M_PI * 180 / 180.0f);
+      break;
+   case 630:
+      //matrix_4x4_rotate_z(rot, M_PI * 270 / 180.0f);
+      matrix_4x4_rotate_270_flip(rot);
+      break;
+   default:
+      matrix_4x4_rotate_z(rot, M_PI * gl->rotation / 180.0f);
+      break;
+   }
+
    matrix_4x4_multiply(gl->mvp, rot, gl->mvp_no_rot);
 }
 

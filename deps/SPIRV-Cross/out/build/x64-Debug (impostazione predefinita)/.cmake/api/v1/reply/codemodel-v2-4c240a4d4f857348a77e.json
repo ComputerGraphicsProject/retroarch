@@ -1,0 +1,132 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"minimumCMakeVersion" : 
+					{
+						"string" : "2.8"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "SPIRV-Cross",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "spirv-cross::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-spirv-cross-Debug-20739202afa95b5c4f2f.json",
+					"name" : "spirv-cross",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "spirv-cross-c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-spirv-cross-c-Debug-14b0415a773d727f5701.json",
+					"name" : "spirv-cross-c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "spirv-cross-core::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-spirv-cross-core-Debug-f0c6536603e073c61c0a.json",
+					"name" : "spirv-cross-core",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "spirv-cross-cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-spirv-cross-cpp-Debug-2c16f2c55c04d4d47a30.json",
+					"name" : "spirv-cross-cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "spirv-cross-glsl::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-spirv-cross-glsl-Debug-b11cca501c0bc8e0e07b.json",
+					"name" : "spirv-cross-glsl",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "spirv-cross-hlsl::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-spirv-cross-hlsl-Debug-790192b87c07ad8a98eb.json",
+					"name" : "spirv-cross-hlsl",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "spirv-cross-msl::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-spirv-cross-msl-Debug-eb68d205f64cf6c87655.json",
+					"name" : "spirv-cross-msl",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "spirv-cross-reflect::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-spirv-cross-reflect-Debug-14c6133287d998c7aa48.json",
+					"name" : "spirv-cross-reflect",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "spirv-cross-util::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-spirv-cross-util-Debug-eca9e124b47b49ba4d22.json",
+					"name" : "spirv-cross-util",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/msys64/home/andre/libretro-super/retroarch/deps/SPIRV-Cross/out/build/x64-Debug (impostazione predefinita)",
+		"source" : "C:/msys64/home/andre/libretro-super/retroarch/deps/SPIRV-Cross"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

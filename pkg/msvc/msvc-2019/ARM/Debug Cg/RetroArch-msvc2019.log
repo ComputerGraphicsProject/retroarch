@@ -1,0 +1,1 @@
+﻿ARM\Debug Cg\griffin.obj : fatal error LNK1112: il tipo di computer del modulo 'x86' è in conflitto con il tipo di computer di destinazione 'ARM'

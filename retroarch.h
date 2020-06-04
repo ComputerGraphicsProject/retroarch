@@ -1476,6 +1476,7 @@ typedef struct video_driver
          bool force_full, bool allow_rotate);
 
    void (*set_rotation)(void *data, unsigned rotation);
+
    void (*viewport_info)(void *data, struct video_viewport *vp);
 
    /* Reads out in BGR byte order (24bpp). */
@@ -1506,6 +1507,8 @@ typedef struct video_driver
 } video_driver_t;
 
 extern struct aspect_ratio_elem aspectratio_lut[ASPECT_RATIO_END];
+
+void write_init_cocktail(int state); 
 
 bool video_driver_has_windowed(void);
 

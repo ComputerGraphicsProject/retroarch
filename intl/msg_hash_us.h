@@ -2231,14 +2231,6 @@ MSG_HASH(
    "Change Orientation 270°"
    )
 MSG_HASH(
-   MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_FLIP_VER,
-   "Set flip vertical shader"
-   )
-MSG_HASH(
-   MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_FLIP_OR,
-   "Set flip horizontal shader"
-   )
-MSG_HASH(
    MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_COCKTAIL,
    "Set cocktail shader"
    )

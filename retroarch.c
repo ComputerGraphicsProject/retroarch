@@ -1007,11 +1007,6 @@ static const camera_driver_t *camera_drivers[] = {
 };
 
 /* MAIN GLOBAL VARIABLES */
-
-int actRot = 0;
-int actOrient = 0;
-/*bool shaderFlipOr = false;
-bool shaderFlipVer = false;*/
 bool shaderCocktail = false;
 int currentDisplay = 0;
 
@@ -2400,12 +2395,14 @@ static bool dir_init_shader(const char *path_dir_shader,
    
    if(read_init_cocktail() == 1)
    {
-      shaderCocktail = true;
+      shaderCocktail = false;
+      command_event(CMD_EVENT_SHADER_COCKTAIL, NULL);
    } 
    else
    {
-      shaderCocktail = false;
+      shaderCocktail = true;
       write_init_cocktail(0);
+      command_event(CMD_EVENT_SHADER_COCKTAIL, NULL);
    }
 
    switch (currentDisplay)
@@ -3562,8 +3559,6 @@ const struct input_bind_map input_config_bind_map[RARCH_BIND_LIST_END_NULL] = {
       DECLARE_META_BIND(2, change_orient_90,             RARCH_CHANGE_ORIENT_90,          MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_90),
       DECLARE_META_BIND(2, change_orient_180,            RARCH_CHANGE_ORIENT_180,         MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_180),
       DECLARE_META_BIND(2, change_orient_270,            RARCH_CHANGE_ORIENT_270,         MENU_ENUM_LABEL_VALUE_INPUT_META_CHANGE_ORIENT_270),
-      DECLARE_META_BIND(2, shader_flip_ver,              RARCH_SHADER_FLIP_VER,           MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_FLIP_VER),
-      DECLARE_META_BIND(2, shader_flip_or,               RARCH_SHADER_FLIP_OR,            MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_FLIP_OR),
       DECLARE_META_BIND(2, shader_cocktail,              RARCH_SHADER_COCKTAIL,           MENU_ENUM_LABEL_VALUE_INPUT_META_SHADER_COCKTAIL),
       DECLARE_META_BIND(2, send_debug_info,              RARCH_SEND_DEBUG_INFO,           MENU_ENUM_LABEL_VALUE_INPUT_META_SEND_DEBUG_INFO),
       DECLARE_META_BIND(2, netplay_host_toggle,          RARCH_NETPLAY_HOST_TOGGLE,       MENU_ENUM_LABEL_VALUE_INPUT_META_NETPLAY_HOST_TOGGLE),
@@ -4056,8 +4051,6 @@ static const struct cmd_map map[] = {
    { "CHANGE_ORIENT_90",            RARCH_CHANGE_ORIENT_90 },
    { "CHANGE_ORIENT_180",           RARCH_CHANGE_ORIENT_180 },
    { "CHANGE_ORIENT_270",           RARCH_CHANGE_ORIENT_270 },
-   { "SHADER_FLIP_VER",             RARCH_SHADER_FLIP_VER },
-   { "SHADER_FLIP_OR",              RARCH_SHADER_FLIP_OR },
    { "SHADER_COCKTAIL",             RARCH_SHADER_COCKTAIL },
    { "SEND_DEBUG_INFO",             RARCH_SEND_DEBUG_INFO },
    { "NETPLAY_HOST_TOGGLE",         RARCH_NETPLAY_HOST_TOGGLE },
@@ -7558,17 +7551,7 @@ bool command_event(enum event_command cmd, void *data)
             settings_t *settings = configuration_settings;
             settings->uints.video_rotation = 0;
             RARCH_LOG("[Hotkey]: Change Rotation 0°");
-            actRot = 0;
             video_driver_set_rotation(0);
-
-            if(shaderCocktail)
-            {
-               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\c.glslp",true);
-            }
-            else
-            {
-               retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
-            }
 
             char cwd[PATH_MAX];
             getcwd(cwd, sizeof(cwd));
@@ -7591,17 +7574,7 @@ bool command_event(enum event_command cmd, void *data)
             settings_t *settings = configuration_settings;
             settings->uints.video_rotation = 3;
             RARCH_LOG("[Hotkey]: Change Rotation 90°");
-            actRot = 3;
             video_driver_set_rotation(3);
-
-            if(shaderCocktail)
-            {
-               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\c.glslp",true);
-            }
-            else
-            {
-               retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
-            }
 
             char cwd[PATH_MAX];
             getcwd(cwd, sizeof(cwd));
@@ -7624,17 +7597,7 @@ bool command_event(enum event_command cmd, void *data)
             settings_t *settings = configuration_settings;
             settings->uints.video_rotation = 2;
             RARCH_LOG("[Hotkey]: Change Rotation 180°");
-            actRot = 2;
             video_driver_set_rotation(2);
-
-            if(shaderCocktail)
-            {
-               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\c.glslp",true);
-            }
-            else
-            {
-               retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
-            }
 
             char cwd[PATH_MAX];
             getcwd(cwd, sizeof(cwd));
@@ -7657,17 +7620,8 @@ bool command_event(enum event_command cmd, void *data)
             settings_t *settings = configuration_settings;
             settings->uints.video_rotation = 1;
             RARCH_LOG("[Hotkey]: Change Rotation 270°");
-            actRot = 1;
             video_driver_set_rotation(1);
 
-            if(shaderCocktail)
-            {
-               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\c.glslp",true);
-            }
-            else
-            {
-               retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
-            }
             char cwd[PATH_MAX];
             getcwd(cwd, sizeof(cwd));
             char *absPath = malloc(strlen(cwd) + strlen("\\config\\remaps\\custom\\270deg\\270deg.rmp") + 1);
@@ -7689,17 +7643,7 @@ bool command_event(enum event_command cmd, void *data)
             settings_t *settings = configuration_settings;
             settings->uints.video_rotation = 0;
             RARCH_LOG("[Hotkey]: Change Rotation 0°");
-            actRot = 0;
-            video_driver_set_rotation(0);
-
-            if(shaderCocktail)
-            {
-               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\hc.glslp",true);
-            }
-            else
-            {
-               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\h.glslp",true);
-            }
+            video_driver_set_rotation(4);
 
             char cwd[PATH_MAX];
             getcwd(cwd, sizeof(cwd));
@@ -7722,17 +7666,7 @@ bool command_event(enum event_command cmd, void *data)
             settings_t *settings = configuration_settings;
             settings->uints.video_rotation = 3;
             RARCH_LOG("[Hotkey]: Change Rotation 90°");
-            actRot = 3;
-            video_driver_set_rotation(3);
-
-            if(shaderCocktail)
-            {
-               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\vc.glslp",true);
-            }
-            else
-            {
-               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\v.glslp",true);
-            }
+            video_driver_set_rotation(5);
 
             char cwd[PATH_MAX];
             getcwd(cwd, sizeof(cwd));
@@ -7755,17 +7689,7 @@ bool command_event(enum event_command cmd, void *data)
             settings_t *settings = configuration_settings;
             settings->uints.video_rotation = 2;
             RARCH_LOG("[Hotkey]: Change Rotation 180°");
-            actRot = 2;
-            video_driver_set_rotation(2);
-
-            if(shaderCocktail)
-            {
-               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\hc.glslp",true);
-            }
-            else
-            {
-               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\h.glslp",true);
-            }
+            video_driver_set_rotation(6);
 
             char cwd[PATH_MAX];
             getcwd(cwd, sizeof(cwd));
@@ -7788,17 +7712,8 @@ bool command_event(enum event_command cmd, void *data)
             settings_t *settings = configuration_settings;
             settings->uints.video_rotation = 1;
             RARCH_LOG("[Hotkey]: Change Rotation 270°");
-            actRot = 1;
-            video_driver_set_rotation(1);
+            video_driver_set_rotation(7);
 
-            if(shaderCocktail)
-            {
-               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\vc.glslp",true);
-            }
-            else
-            {
-               retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\v.glslp",true);
-            }
             char cwd[PATH_MAX];
             getcwd(cwd, sizeof(cwd));
             char *absPath = malloc(strlen(cwd) + strlen("\\config\\remaps\\custom\\270deg\\270deg-hor.rmp") + 1);
@@ -7817,7 +7732,7 @@ bool command_event(enum event_command cmd, void *data)
             settings_t *settings = configuration_settings;
             settings->uints.screen_orientation = 0;
             RARCH_LOG("[Hotkey]: Change Orient 0°");
-            actOrient = 0;
+
             video_display_server_set_screen_orientation(0);
          }
          break;
@@ -7826,7 +7741,7 @@ bool command_event(enum event_command cmd, void *data)
             settings_t *settings = configuration_settings;
             settings->uints.screen_orientation = 3;
             RARCH_LOG("[Hotkey]: Change Orient 90°");
-            actOrient = 3;
+
             video_display_server_set_screen_orientation(3);
          }
          break;
@@ -7835,7 +7750,7 @@ bool command_event(enum event_command cmd, void *data)
             settings_t *settings = configuration_settings;
             settings->uints.screen_orientation = 2;
             RARCH_LOG("[Hotkey]: Change Orient 180°");
-            actOrient = 2;
+
             video_display_server_set_screen_orientation(2);
          }
          break;
@@ -7844,84 +7759,24 @@ bool command_event(enum event_command cmd, void *data)
             settings_t *settings = configuration_settings;
             settings->uints.screen_orientation = 1;
             RARCH_LOG("[Hotkey]: Change Orient 270°");
-            actOrient = 1;
+
             video_display_server_set_screen_orientation(1);
          }
          break;
-         /*case CMD_EVENT_SHADER_FLIP_VER:
-         {
-            shaderFlipVer = !shaderFlipVer;
-            
-            if(actRot == 1 || actRot == 3)
-            {
-               retroarch_hotkey_shader(shaderFlipOr, shaderFlipVer, shaderCocktail);
-
-            } else
-            {
-               retroarch_hotkey_shader(shaderFlipVer, shaderFlipOr, shaderCocktail);
-            }
-         }
-         break;
-         case CMD_EVENT_SHADER_FLIP_OR:
-         {
-            shaderFlipOr = !shaderFlipOr;
-            
-            if(actRot == 1 || actRot == 3)
-            {
-               retroarch_hotkey_shader(shaderFlipOr, shaderFlipVer, shaderCocktail); 
-            } else
-            {
-               retroarch_hotkey_shader(shaderFlipVer, shaderFlipOr, shaderCocktail);
-            }
-         }
-         break; */
+         
       case CMD_EVENT_SHADER_COCKTAIL:
          {
             shaderCocktail = !shaderCocktail;
             //retroarch_hotkey_shader(shaderFlipVer, shaderFlipOr, shaderCocktail);
             if(shaderCocktail) 
             {
-               switch (currentDisplay)
-               {
-                  case 5:
-                     retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\hc.glslp",true);
-                     break;
-                  case 6:
-                     retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\vc.glslp",true);
-                     break;
-                  case 7:
-                     retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\hc.glslp",true);
-                     break;
-                  case 8:
-                     retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\vc.glslp",true);
-                     break;
-                  default:
-                     retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\c.glslp",true);
-                     break;
-               }
-               write_init_cocktail(1);
+              retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\c.glslp",true);
+              write_init_cocktail(1);
             } 
             else 
             {
-               switch (currentDisplay)
-               {
-                  case 5:
-                     retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\h.glslp",true);
-                     break;
-                  case 6:
-                     retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\v.glslp",true);
-                     break;
-                  case 7:
-                     retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\h.glslp",true);
-                     break;
-                  case 8:
-                     retroarch_apply_shader(RARCH_SHADER_GLSL,".\\shaders\\v.glslp",true);
-                     break;
-                  default:
-                     retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
-                     break;
-               }
-               write_init_cocktail(0);
+              retroarch_apply_shader(RARCH_SHADER_NONE,"",true);
+              write_init_cocktail(0);
             }
          }
          break;
@@ -28575,8 +28430,6 @@ static enum runloop_state runloop_check_state(retro_time_t current_time)
             {0,                RARCH_CHANGE_ORIENT_90         },
             {0,                RARCH_CHANGE_ORIENT_180        },
             {0,                RARCH_CHANGE_ORIENT_270        },
-            {0,                RARCH_SHADER_FLIP_VER          },
-            {0,                RARCH_SHADER_FLIP_OR           },
             {0,                RARCH_SHADER_COCKTAIL          },
             {0,                RARCH_SEND_DEBUG_INFO          },
             {0,                RARCH_NETPLAY_HOST_TOGGLE      },
@@ -28599,12 +28452,10 @@ static enum runloop_state runloop_check_state(retro_time_t current_time)
          ids[25][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_90].key;
          ids[26][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_180].key;
          ids[27][0] = input_config_binds[0][RARCH_CHANGE_ORIENT_270].key;
-         ids[28][0] = input_config_binds[0][RARCH_SHADER_FLIP_VER].key;
-         ids[29][0] = input_config_binds[0][RARCH_SHADER_FLIP_OR].key;
-         ids[30][0] = input_config_binds[0][RARCH_SHADER_COCKTAIL].key;
-         ids[31][0] = input_config_binds[0][RARCH_SEND_DEBUG_INFO].key;
-         ids[32][0] = input_config_binds[0][RARCH_NETPLAY_HOST_TOGGLE].key;
-         ids[33][0] = input_config_binds[0][RARCH_MENU_TOGGLE].key;
+         ids[28][0] = input_config_binds[0][RARCH_SHADER_COCKTAIL].key;
+         ids[29][0] = input_config_binds[0][RARCH_SEND_DEBUG_INFO].key;
+         ids[30][0] = input_config_binds[0][RARCH_NETPLAY_HOST_TOGGLE].key;
+         ids[31][0] = input_config_binds[0][RARCH_MENU_TOGGLE].key;
 
          if (settings->bools.input_menu_swap_ok_cancel_buttons)
          {
@@ -29069,10 +28920,6 @@ static enum runloop_state runloop_check_state(retro_time_t current_time)
    HOTKEY_CHECK(RARCH_CHANGE_ORIENT_180, CMD_EVENT_CHANGE_ORIENT_180, true, NULL);
    /* Check if we have pressed the CHANGE ROTATION CCW button */
    HOTKEY_CHECK(RARCH_CHANGE_ORIENT_270, CMD_EVENT_CHANGE_ORIENT_270, true, NULL);
-   /* Check if we have pressed the SHADER FLIP VER button */
-   HOTKEY_CHECK(RARCH_SHADER_FLIP_VER, CMD_EVENT_SHADER_FLIP_VER, true, NULL);
-   /* Check if we have pressed the SHADER FLIP OR button */
-   HOTKEY_CHECK(RARCH_SHADER_FLIP_OR, CMD_EVENT_SHADER_FLIP_OR, true, NULL);
    /* Check if we have pressed the SHADER COCKTAIL button */
    HOTKEY_CHECK(RARCH_SHADER_COCKTAIL, CMD_EVENT_SHADER_COCKTAIL, true, NULL);
 

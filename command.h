@@ -106,10 +106,6 @@ enum event_command
    CMD_EVENT_CHANGE_ORIENT_180,
    /* Change Orientation Counterclockwise. */
    CMD_EVENT_CHANGE_ORIENT_270,
-   /* Set flip vertical shader. */
-   CMD_EVENT_SHADER_FLIP_VER,
-   /* Set flip horizontal shader. */
-   CMD_EVENT_SHADER_FLIP_OR,
    /* Set cocktail shader. */
    CMD_EVENT_SHADER_COCKTAIL,
    /* Gathers diagnostic info about the system and RetroArch configuration, then sends it to our servers. */
